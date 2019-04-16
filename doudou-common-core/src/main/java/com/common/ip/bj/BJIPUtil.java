@@ -6,7 +6,10 @@ import com.common.http.HttpUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BJUtil {
+/**
+ *
+ */
+public class BJIPUtil {
     private static String URL = "http://api.help.bj.cn/apis/ip";
     /**
      * ip地址识别

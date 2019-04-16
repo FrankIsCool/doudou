@@ -29,7 +29,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
@@ -44,8 +43,8 @@ public class HttpUtil {
 
     private static PoolingHttpClientConnectionManager connMgr;
     private static RequestConfig requestConfig;
-    private static final int MAX_TIMEOUT = 7000;
-
+    private static final int MAX_TIMEOUT = 30000;
+    private static final String DEFAULT_CHARSET = "UTF-8";
     static {
         // 设置连接池
         connMgr = new PoolingHttpClientConnectionManager();
@@ -64,14 +63,67 @@ public class HttpUtil {
         configBuilder.setStaleConnectionCheckEnabled(true);
         requestConfig = configBuilder.build();
     }
-
+    /**
+     * 功能描述: 构造请求参数
+     *
+     * @return 返回类型:
+     * @throws Exception
+     */
+    private static String initParams(String url, Map<String, Object> params)
+            throws Exception {
+        if (null == params || params.isEmpty()) {
+            return url;
+        }
+        StringBuilder sb = new StringBuilder(url);
+        if (url.indexOf("?") == -1) {
+            sb.append("?");
+        }
+        sb.append(map2Url(params));
+        return sb.toString();
+    }
+    /**
+     * map构造url
+     *
+     * @return 返回类型:
+     * @throws Exception
+     */
+    private static String map2Url(Map<String, Object> paramToMap)
+            throws Exception {
+        if (null == paramToMap || paramToMap.isEmpty()) {
+            return null;
+        }
+        StringBuffer url = new StringBuffer();
+        boolean isfist = true;
+        for (Map.Entry<String, Object> entry : paramToMap.entrySet()) {
+            if (isfist) {
+                isfist = false;
+            } else {
+                url.append("&");
+            }
+            url.append(entry.getKey()).append("=");
+            String value = entry.getValue().toString();
+            if (value!=null&&value.length()>0) {
+                url.append(URLEncoder.encode(value, DEFAULT_CHARSET));
+            }
+        }
+        return url.toString();
+    }
+    /**
+     * 发送 GET 请求（HTTP），带输入数据
+     * @param url
+     * @param params
+     * @return
+     */
+    public static String doGet(String url,Map<String, Object> params) {
+        return doGet(url, new HashMap<String, Object>(),params);
+    }
     /**
      * 发送 GET 请求（HTTP），不带输入数据
      * @param url
      * @return
      */
     public static String doGet(String url) {
-        return doGet(url, new HashMap<String, Object>());
+        return doGet(url, new HashMap<String, Object>(), new HashMap<String, Object>());
     }
 
     /**
@@ -80,39 +132,28 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public static String doGet(String url, Map<String, Object> params) {
-
-        String apiUrl = url;
-        StringBuffer param = new StringBuffer();
-        int i = 0;
-        for (String key : params.keySet()) {
-            if (i == 0)
-                param.append("?");
-            else
-                param.append("&");
-            try {
-                param.append(key).append("=").append(URLEncoder.encode(params.get(key)+"","UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            i++;
-        }
-        apiUrl += param;
+    public static String doGet(String url, Map<String, Object> headers, Map<String, Object> params) {
         String result = null;
         HttpClient httpclient = new DefaultHttpClient();
         try {
-            HttpGet httpPost = new HttpGet(apiUrl);
-            HttpResponse response = httpclient.execute(httpPost);
-            int statusCode = response.getStatusLine().getStatusCode();
-
-            System.out.println("执行状态码 : " + statusCode);
-
+            url = initParams(url, params);
+            HttpGet httpget = new HttpGet(url);
+            httpget.setConfig(requestConfig);
+            if (null != headers && !headers.isEmpty()) {
+                for (Map.Entry<String, Object> entry : headers.entrySet()) {
+                    httpget.setHeader(entry.getKey(), entry.getValue().toString());
+                }
+            }
+            HttpResponse response = httpclient.execute(httpget);
+//            int statusCode = response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 InputStream instream = entity.getContent();
                 result = IOUtils.toString(instream, "UTF-8");
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
@@ -327,5 +368,17 @@ public class HttpUtil {
         }
         return sslsf;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

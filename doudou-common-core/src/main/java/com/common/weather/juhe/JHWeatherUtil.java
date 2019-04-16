@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 查询天气
+ * 聚合查询天气
  */
 public class JHWeatherUtil {
 
