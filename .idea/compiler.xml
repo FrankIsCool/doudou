@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="service-user" />
+        <module name="common-core" />
+        <module name="service-others" />
+        <module name="impl-others" />
+        <module name="web-api" />
+        <module name="doudou-common-core" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common-core" target="6" />
+      <module name="doudou" target="1.5" />
+      <module name="doudou-common-core" target="6" />
+      <module name="impl-others" target="1.5" />
+      <module name="service-others" target="1.5" />
+      <module name="service-user" target="1.5" />
+      <module name="web-api" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
