@@ -23,8 +23,4 @@ public class BJIPUtil {
         BJResult data = JSONObject.parseObject(s,BJResult.class);
         return data;
     }
-
-    public static void main(String[] args) {
-        getAdress("113.132.171.119");
-    }
 }

@@ -44,7 +44,4 @@ public class JHWeatherUtil {
         jhResult.setResult(jhCitys);
         return jhResult;
     }
-    public static void main(String[] args) {
-        JHWeatherUtil.getWeather("上海");
-    }
 }

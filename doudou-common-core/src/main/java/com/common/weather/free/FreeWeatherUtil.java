@@ -36,7 +36,4 @@ public class FreeWeatherUtil {
         FreeResult freeResult = JSONObject.parseObject(s, FreeResult.class);
         return freeResult;
     }
-    public static void main(String[] args) {
-        getWeatherByCity("上海");
-    }
 }

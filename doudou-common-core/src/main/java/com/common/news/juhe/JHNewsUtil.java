@@ -27,7 +27,4 @@ public class JHNewsUtil {
         jhResult.setResult(jhNewsResult);
         return jhResult;
     }
-    public static void main(String[] args) {
-        JHNewsUtil.getNews("top");
-    }
 }

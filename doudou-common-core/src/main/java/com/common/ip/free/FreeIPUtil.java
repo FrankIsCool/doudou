@@ -22,8 +22,4 @@ public class FreeIPUtil {
         FreeAddress freeAddress = JSONObject.parseObject(s, FreeAddress.class);
         return freeAddress;
     }
-
-    public static void main(String[] args) {
-        getAdress("113.132.171.119");
-    }
 }

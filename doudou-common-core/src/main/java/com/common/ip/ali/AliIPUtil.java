@@ -85,14 +85,4 @@ public class AliIPUtil {
         return gdipResult;
     }
 
-    public static void main(String[] args) {
-//        getAddressByYY("183.15.176.41");
-//        getAddressByFS("183.15.176.41");
-//        getAddressByHC("183.15.176.41");
-        getAddressByGD("183.15.176.41");
-
-
-
-
-    }
 }

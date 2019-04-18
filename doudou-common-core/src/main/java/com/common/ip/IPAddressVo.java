@@ -1,6 +1,8 @@
 package com.common.ip;
 
-public class IPAddressVo {
+import java.io.Serializable;
+
+public class IPAddressVo implements Serializable {
 
     private String ip;
     private String country;

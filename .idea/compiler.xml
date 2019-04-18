@@ -15,7 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common-core" target="6" />
+      <module name="common-core" target="1.5" />
       <module name="doudou" target="1.5" />
       <module name="doudou-common-core" target="6" />
       <module name="impl-others" target="1.5" />

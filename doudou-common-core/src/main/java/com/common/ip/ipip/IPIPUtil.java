@@ -32,7 +32,4 @@ public class IPIPUtil {
         ipipData.setIsp(data.get(4));
         return ipipData;
     }
-    public static void main(String[] args) {
-        getAdress("183.15.176.41");
-    }
 }

@@ -10,19 +10,33 @@
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-    <context:component-scan base-package="com.controller" />
+    <context:component-scan base-package="com.web.swagger,com.web.controller" />
     <!-- 扩充了注解驱动，可以将请求参数绑定到控制器参数 -->
-    <mvc:annotation-driven/>
-
+    <!-- 处理请求返回json字符串的中文乱码问题 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!-- 静态资源处理  css js imgs -->
+
+    <bean id="swaggerConfig" class="com.web.swagger.SwaggerConfig"></bean>
 <!--    <mvc:resources location="/resources/**" mapping="/resources"/>-->
-    <bean id="swaggerConfig" class="com.swagger.SwaggerConfig"></bean>
+    <mvc:resources location="classpath:/static/" mapping="/static/**"/>
     <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
     <mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
 
+    <import resource="spring-dubbo-consumer.xml" />
+
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 <!--    <bean id="mappingJacksonHttpMessageConverter"-->
-<!--          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">-->
+<!--          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
 <!--        <property name="supportedMediaTypes">-->
 <!--            <list>-->
 <!--                <value>text/html;charset=UTF-8</value>-->
@@ -71,13 +85,12 @@
 <!--        <property name="ignoreAcceptHeader" value="true"></property>-->
 <!--    </bean>-->
 
-    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+<!--     定义跳转的文件的前后缀 ，视图模式配置-->
 <!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
 <!--        &lt;!&ndash; 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 &ndash;&gt;-->
 <!--        <property name="prefix" value="/WEB-INF/jsp/" />-->
 <!--        <property name="suffix" value=".jsp" />-->
 <!--    </bean>-->
     <!--添加swagger配置-->
-<!--    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="SwaggerConfig"/>-->
-
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
 </beans>

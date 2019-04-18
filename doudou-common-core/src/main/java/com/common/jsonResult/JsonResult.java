@@ -1,6 +1,8 @@
 package com.common.jsonResult;
 
-public class JsonResult <T>{
+import java.io.Serializable;
+
+public class JsonResult <T> implements Serializable {
 
     private String code;
 

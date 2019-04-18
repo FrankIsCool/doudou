@@ -27,8 +27,4 @@ public class JHIPUtil {
         jhResult.setResult(jhIPData);
         return jhResult;
     }
-    public static void main(String[] args) {
-        JHIPUtil.getAddress("183.15.176.41");
-    }
-
 }
