@@ -7,14 +7,16 @@
         <groupId>com.doudou.web</groupId>
         <version>1.0.0</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.service.others</groupId>
     <artifactId>service-others</artifactId>
-    <groupId>com.doudou.others</groupId>
     <version>1.0-SNAPSHOT</version>
+
     <dependencies>
         <dependency>
-            <groupId>com.doudou.core</groupId>
+            <groupId>com.common.core</groupId>
             <artifactId>common-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

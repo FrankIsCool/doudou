@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-others" />
+    <file type="web" url="file://$PROJECT_DIR$/doudou-impl-user" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-web-api" />
   </component>
   <component name="JavaScriptSettings">
@@ -12,6 +13,13 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/doudou-impl-neo/pom.xml" />
+        <option value="$PROJECT_DIR$/doudou-service-neo4j/pom.xml" />
+        <option value="$PROJECT_DIR$/service-neo4j/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />

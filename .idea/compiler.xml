@@ -9,19 +9,33 @@
         <module name="service-user" />
         <module name="common-core" />
         <module name="service-others" />
+        <module name="impl-user" />
         <module name="impl-others" />
         <module name="web-api" />
         <module name="doudou-common-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common-core" target="1.5" />
-      <module name="doudou" target="1.5" />
+      <module name="common-core" target="1.8" />
+      <module name="doudou" target="1.8" />
       <module name="doudou-common-core" target="6" />
-      <module name="impl-others" target="1.5" />
-      <module name="service-others" target="1.5" />
-      <module name="service-user" target="1.5" />
+      <module name="impl-neo" target="1.5" />
+      <module name="impl-others" target="1.8" />
+      <module name="impl-user" target="8" />
+      <module name="service-neo4j" target="1.5" />
+      <module name="service-others" target="1.8" />
+      <module name="service-user" target="1.8" />
       <module name="web-api" target="1.7" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common-core" options="-parameters" />
+      <module name="impl-others" options="-parameters" />
+      <module name="impl-user" options="-parameters" />
+      <module name="service-others" options="-parameters" />
+      <module name="service-user" options="-parameters" />
+      <module name="web-api" options="-parameters" />
+    </option>
   </component>
 </project>

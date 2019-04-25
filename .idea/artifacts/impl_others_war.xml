@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="impl-others-1.0.0.war">
+    <root id="archive" name="impl-others-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="impl-others:war exploded" />
     </root>
   </artifact>
