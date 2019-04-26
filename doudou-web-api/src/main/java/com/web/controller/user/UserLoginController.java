@@ -1,7 +1,7 @@
 package com.web.controller.user;
 
 import com.common.jsonResult.JsonResult;
-import com.service.model.UserNode;
+import com.service.model.UserLogin;
 import com.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,10 +27,7 @@ public class UserLoginController {
             @ApiImplicitParam(paramType="query", name = "password", value = "密码", required = true, dataType = "String")
     })
 
-    public JsonResult<Integer> userLogin(String userName, String password){
-        UserNode userNode = new UserNode();
-        userNode.setUserName(userName);
-        userNode.setPassword(password);
-        return userService.saveUser(userNode);
+    public JsonResult<UserLogin> userLogin(String userName, String password){
+        return userService.userLogin(userName,password);
     }
 }

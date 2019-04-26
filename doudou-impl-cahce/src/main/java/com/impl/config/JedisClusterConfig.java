@@ -1,4 +1,4 @@
-package com.common.redis;
+package com.impl.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class JedisClusterConfig {
 
     public JedisCluster getJedisCluster(){
         String [] serverArray=redisProperties.getClusterNodes().split(",");
-        Set<HostAndPort> nodes=new HashSet<HostAndPort>();
+        Set<HostAndPort> nodes=new HashSet<>();
 
         for (String ipPort:serverArray){
             String [] ipPortPair=ipPort.split(":");
@@ -24,4 +24,5 @@ public class JedisClusterConfig {
         }
         return  new JedisCluster(nodes,redisProperties.getCommandTimeout());
     }
+
 }

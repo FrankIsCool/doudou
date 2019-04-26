@@ -3,10 +3,10 @@ package com.impl.user;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
-import com.common.redis.RedisClientTemplate;
 import com.impl.repository.UserRepository;
 import com.service.model.UserLogin;
 import com.service.model.UserNode;
+import com.service.redis.RedisService;
 import com.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +18,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private RedisClientTemplate redisClientTemplate;
+    private RedisService redisService;
+
+
+
     public JsonResult<Integer> saveUser(UserNode userNode) {
         JsonResult<Integer> result = new JsonResult<Integer>();
         userNode = initUserNode(userNode);
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
         JsonResult<UserLogin> result = new JsonResult<UserLogin>();
         UserLogin userLogin = new UserLogin();
         userLogin.setUserName(userName);
-        redisClientTemplate.set(userName,userName);
+        redisService.set(userName,userName);
         result.setData(userLogin);
         return result;
     }

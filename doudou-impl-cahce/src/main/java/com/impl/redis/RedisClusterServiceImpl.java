@@ -1,41 +1,35 @@
-package com.common.redis;
+package com.impl.redis;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.impl.config.JedisClusterConfig;
+import com.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-/**
- * @Author: nanjunyu
- * @Description:
- * @Date: Create in  2018/6/14 16:34
- */
 @Service
-public class RedisClientTemplate {
-    private static final Logger log=LoggerFactory.getLogger(RedisClientTemplate.class);
+public class RedisClusterServiceImpl implements RedisService {
 
     @Autowired
     private JedisClusterConfig jedisClusterConfig;
 
-    public boolean set(String key,Object value){
+
+    @Override
+    public boolean set(String key, String value) {
         try {
             String str=jedisClusterConfig.getJedisCluster().set(key, String.valueOf(value));
             if("OK".equals(str))
                 return true;
         }catch (Exception ex){
-            log.error("setToRedis:{Key:"+key+",value"+value+"}",ex);
+            System.out.println(ex);
         }
         return false;
     }
 
-    public Object get(String key){
+    @Override
+    public String get(String key){
         String str=null;
         try {
             str=jedisClusterConfig.getJedisCluster().get(key);
         }catch (Exception ex){
-            log.error("getRedis:{Key:"+key+"}",ex);
         }
         return str;
     }
-
 }

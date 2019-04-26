@@ -20,4 +20,5 @@
     <dubbo:protocol name="dubbo" port="20880" threadpool="fixed"/>
     <import resource="classpath*:dubbo-user-service.xml" />
     <import resource="classpath*:dubbo-other-service.xml" />
+    <import resource="classpath*:dubbo-redis-service.xml" />
 </beans>
