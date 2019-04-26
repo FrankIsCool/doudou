@@ -1,6 +1,6 @@
 package com.common.ip;
 
-public class IPUilt {
+public class IPUtil {
 
     public static IPAddressVo getAddress(String ip){
 
