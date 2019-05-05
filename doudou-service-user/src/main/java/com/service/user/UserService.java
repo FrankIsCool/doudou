@@ -12,5 +12,5 @@ public interface UserService {
 
     JsonResult<UserNode> getUser(String userCode);
 
-    JsonResult<UserLogin> userLogin(String userName, String password);
+    JsonResult<UserLogin> userLogin(String userName, String password, String source);
 }

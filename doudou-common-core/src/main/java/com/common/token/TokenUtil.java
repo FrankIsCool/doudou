@@ -1,5 +1,6 @@
 package com.common.token;
 
+import com.alibaba.fastjson.JSON;
 import com.common.empty.EmptyUtil;
 import com.common.jwt.JWTUtil;
 import com.common.object.ObjectUtil;
@@ -13,7 +14,7 @@ public class TokenUtil {
      * @param token		登录加密实体类
      * @return 登录令牌
      */
-    public static String createToken(Token token){
+    public static String createToken(TokenVo token){
         if(EmptyUtil.isEmpty(token)){
             return null;
         }
@@ -30,18 +31,36 @@ public class TokenUtil {
         if(EmptyUtil.isEmpty(token,source)){
             return false;
         }
-        Map<String, String> condition = JWTUtil.getCondition(token);
-        if(EmptyUtil.isEmpty(condition)){
+        TokenVo tokenVo = getTokenVo(token);
+        if(EmptyUtil.isEmpty(tokenVo)){
             return false;
         }
-        if(!condition.containsKey("source")){
+        if(EmptyUtil.isEmpty(tokenVo.getSource())){
             return false;
         }
-        String sourceToken = condition.get("source");
-        if(!sourceToken.equals(source)){
+        if(!tokenVo.getSource().equals(source)){
             return false;
         }
         return true;
     }
 
+    /**
+     * token字符串转tokenvo实体类
+     * @param token token加密串
+     * @return      解密后的实体
+     */
+    public static TokenVo getTokenVo(String token){
+        if(EmptyUtil.isEmpty(token)){
+            return null;
+        }
+        Map<String, String> condition = JWTUtil.getCondition(token);
+        if(EmptyUtil.isEmpty(condition)){
+            return null;
+        }
+        TokenVo tokenVo = JSON.parseObject(JSON.toJSONString(condition), TokenVo.class);
+        if(EmptyUtil.isEmpty(tokenVo)){
+            return null;
+        }
+        return tokenVo;
+    }
 }

@@ -3,7 +3,7 @@ package com.common.token;
 /**
  * 用户登录令牌生成的内容实体类
  */
-public class Token {
+public class TokenVo {
     //用户id
     private String userId;
     //登录源

@@ -5,8 +5,16 @@ import java.io.Serializable;
 public class UserLogin implements Serializable {
 
     private String userName;
-
+    private String userCode;
     private String token;
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
 
     public String getUserName() {
         return userName;

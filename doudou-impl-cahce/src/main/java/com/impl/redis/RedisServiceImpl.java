@@ -20,10 +20,22 @@ public class RedisServiceImpl implements RedisService {
     public boolean set(String key, String value) {
         return setValue(key,value);
     }
+
+    @Override
+    public boolean set(String key, Object value) {
+        return setValue(key,value);
+    }
+
     @Override
     public String get(String key) {
         return String.valueOf(getValue(key));
     }
+
+    @Override
+    public Object getObject(String key) {
+        return getValue(key);
+    }
+
     /**
      * 写入缓存
      * @param key
@@ -102,7 +114,7 @@ public class RedisServiceImpl implements RedisService {
      * @param key
      * @return
      */
-    public Object getValue( String key) {
+    public Object getValue(String key) {
         Object result = null;
         ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
         result = operations.get(key);

@@ -48,7 +48,7 @@ public class JWTUtil {
 	 */
 	public static final String JWT_TOKEN_ISS = "doudou";
 	/**
-	 * Token object oriented
+	 * TokenVo object oriented
 	 */
 	public static final String JWT_TOKEN_AUD = "web";
 

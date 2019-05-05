@@ -1,8 +1,11 @@
 package com.impl.user;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
+import com.common.token.TokenUtil;
+import com.common.token.TokenVo;
 import com.impl.repository.UserRepository;
 import com.service.model.UserLogin;
 import com.service.model.UserNode;
@@ -49,22 +52,41 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    public JsonResult<UserLogin> userLogin(String userName, String password) {
+    public JsonResult<UserLogin> userLogin(String userName, String password, String source) {
         List<UserNode> userNodes = userRepository.getUserByName(userName);
         if(null==userNodes||userNodes.size()<0){
-            return JsonResult.error(ExceptionCode.ERRO_101002);
+            return JsonResult.error(ExceptionCode.ERRO_102002);
         }
         if(userNodes.size()>1){
-            return JsonResult.error(ExceptionCode.ERRO_101003);
+            return JsonResult.error(ExceptionCode.ERRO_102003);
         }
         UserNode userNode = userNodes.get(0);
         if(!password.equals(userNode.getPassword())){
-            return JsonResult.error(ExceptionCode.ERRO_101004);
+            return JsonResult.error(ExceptionCode.ERRO_102004);
         }
-        JsonResult<UserLogin> result = new JsonResult<UserLogin>();
+        if(EmptyUtil.isEmpty(userNode.getState())){
+            userNode.setState(UserNode.USER_STATE_NORMAL);
+        }
+        if(userNode.getState()==UserNode.USER_STATE_ABNORMAL){
+            return JsonResult.error(ExceptionCode.ERRO_102003);
+        }
+        if(userNode.getState()==UserNode.USER_STATE_FREEZE){
+            return JsonResult.error(ExceptionCode.ERRO_102005);
+        }
+        TokenVo tokenVo = new TokenVo();
+        tokenVo.setUserCode(userNode.getUserCode());
+        tokenVo.setUserId(String.valueOf(userNode.getId()));
+        tokenVo.setSource(source);
+        String token = TokenUtil.createToken(tokenVo);
+        JsonResult<UserLogin> result = new JsonResult<>();
         UserLogin userLogin = new UserLogin();
+        userLogin.setToken(token);
         userLogin.setUserName(userName);
-        redisService.set(userName,userName);
+        userLogin.setUserCode(userNode.getUserCode());
+        boolean set = redisService.set(userNode.getUserCode(), userLogin);
+        if(!set){
+            return JsonResult.error(ExceptionCode.ERRO_102001);
+        }
         result.setData(userLogin);
         return result;
     }
@@ -76,7 +98,7 @@ public class UserServiceImpl implements UserService {
      */
     private UserNode initUserNode(UserNode userNode){
         userNode.setUserCode(UUID.randomUUID().toString().replace("-",""));
-//        user.setId(1L);
+        userNode.setState(UserNode.USER_STATE_NORMAL);
         return userNode;
     }
 }

@@ -14,6 +14,7 @@ public class MVCConfig implements WebMvcConfigurer {
         // 登录拦截规则
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**/user/**")
+                .excludePathPatterns("/**/user/regis")
                 .excludePathPatterns("/**/user/login")
                 .excludePathPatterns("/**/user/logout");
     }
@@ -28,44 +29,12 @@ public class MVCConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")//设置允许跨域的路径
-//                .allowedOrigins("*")//设置允许跨域请求的域名
-//                .allowCredentials(true)//是否允许证书 不再默认开启
-//                .allowedMethods("GET", "POST", "PUT", "DELETE")//设置允许的方法
-//                .maxAge(3600);//跨域允许时间
+        registry.addMapping("/**")//设置允许跨域的路径
+                .allowedOrigins("*")//设置允许跨域请求的域名
+                .allowCredentials(true)//是否允许证书 不再默认开启
+                .allowedMethods("GET", "POST", "PUT", "DELETE")//设置允许的方法
+                .maxAge(3600);//跨域允许时间
     }
-
-//    private ApplicationContext applicationContext;
-//    public MVCConfig() {
-//        super();
-//    }
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("swagger-ui.html")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//
-//        registry.addResourceHandler("/webjars/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//        super.addResourceHandlers(registry);
-//    }
-//
-//    @Override
-//    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-//        this.applicationContext = applicationContext;
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        // 登录拦截规则
-//        registry.addInterceptor(new LoginInterceptor())
-//                .addPathPatterns("/user/**")
-//                .excludePathPatterns("/user/login")
-//                .excludePathPatterns("/user/logout");
-//
-//        super.addInterceptors(registry);
-//    }
-
 }
