@@ -5,6 +5,7 @@ import com.common.empty.EmptyUtil;
 import com.common.jwt.JWTUtil;
 import com.common.object.ObjectUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public class TokenUtil {
@@ -43,7 +44,13 @@ public class TokenUtil {
         }
         return true;
     }
-
+    public static TokenVo getTokenVo(HttpServletRequest request){
+        String token = request.getHeader("token");
+        if(EmptyUtil.isEmpty(token)){
+            return null;
+        }
+        return getTokenVo(token);
+    }
     /**
      * token字符串转tokenvo实体类
      * @param token token加密串

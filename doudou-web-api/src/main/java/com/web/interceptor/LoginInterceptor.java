@@ -14,10 +14,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class LoginInterceptor implements HandlerInterceptor {
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-//        String url = request.getRequestURI();
+
         String token = request.getHeader("token");
         if(EmptyUtil.isEmpty(token)){
             retrunErro(response,JsonResult.error(ExceptionCode.ERRO_100001));

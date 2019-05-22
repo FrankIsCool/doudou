@@ -6,7 +6,9 @@ import java.io.Serializable;
 
 public class JsonResult <T> implements Serializable {
 
-    private String code = "1";
+    public static final String SUCCESS = "1";
+
+    private String code = SUCCESS;
     private String msg = "";
     private String exceptoin = "";
     private T data;

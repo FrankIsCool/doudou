@@ -6,6 +6,8 @@ import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
 import com.common.token.TokenUtil;
 import com.common.token.TokenVo;
+import com.impl.dao.slaver.user.UserLoginLogMapper;
+import com.impl.model.UserLoginLog;
 import com.impl.repository.UserRepository;
 import com.service.model.UserLogin;
 import com.service.model.UserNode;
@@ -22,11 +24,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private UserLoginLogMapper userLoginLogMapper;
 
-
-
+    @Override
     public JsonResult<Integer> saveUser(UserNode userNode) {
-        JsonResult<Integer> result = new JsonResult<Integer>();
+        JsonResult<Integer> result = new JsonResult<>();
         userNode = initUserNode(userNode);
         userNode = userRepository.save(userNode);
         if(null==userNode.getId()||userNode.getId()<0){
@@ -36,22 +39,19 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-
+    @Override
     public JsonResult<UserNode> getUser(long id) {
         JsonResult<UserNode> result = new JsonResult<>();
-//        Map map = userRepository.getUserById(id);
-//        UserNode userNode = JSONObject.parseObject(JSONObject.toJSON(map).toString(), UserNode.class);
         result.setData(userRepository.getUserById(id));
         return result;
     }
-
+    @Override
     public JsonResult<UserNode> getUser(String userCode) {
         JsonResult<UserNode> result = new JsonResult<UserNode>();
-//        UserNode userNode = userRepository.(id);
-//        result.setData(nodeToUser(userNode));
+        result.setData(userRepository.getUserByCode(userCode));
         return result;
     }
-
+    @Override
     public JsonResult<UserLogin> userLogin(String userName, String password, String source) {
         List<UserNode> userNodes = userRepository.getUserByName(userName);
         if(null==userNodes||userNodes.size()<0){
@@ -87,6 +87,12 @@ public class UserServiceImpl implements UserService {
         if(!set){
             return JsonResult.error(ExceptionCode.ERRO_102001);
         }
+        //添加登录记录
+        UserLoginLog userLoginLog  = new UserLoginLog();
+        userLoginLog.setUserId(userNode.getId());
+        userLoginLog.setSource(Integer.valueOf(source));
+        userLoginLogMapper.save(userLoginLog);
+
         result.setData(userLogin);
         return result;
     }
