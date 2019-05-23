@@ -7,11 +7,11 @@ public class BrowseLog implements Serializable {
 
     private static final long serialVersionUID = -1923645274767028479L;
     //id
-    private int id;
+    private long id;
     //访问url
     private String url;
     //用户id
-    private int userId;
+    private long userId;
     //来源
     private int source;
     //其他信息，以json的形式存储
@@ -21,11 +21,11 @@ public class BrowseLog implements Serializable {
     //创建时间
     private Date createTime;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -37,11 +37,11 @@ public class BrowseLog implements Serializable {
         this.url = url;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

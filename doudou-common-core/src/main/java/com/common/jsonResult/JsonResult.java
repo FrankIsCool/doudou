@@ -3,15 +3,36 @@ package com.common.jsonResult;
 import com.common.exception.ExceptionCode;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class JsonResult <T> implements Serializable {
 
     public static final String SUCCESS = "1";
-
+    /**
+     *
+     */
     private String code = SUCCESS;
     private String msg = "";
     private String exceptoin = "";
     private T data;
+    private int row;
+    private int size;
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public JsonResult(){}
 
@@ -64,6 +85,9 @@ public class JsonResult <T> implements Serializable {
     }
 
     public void setData(T data) {
+        if (data instanceof List){
+            this.size = ((List) data).size();
+        }
         this.data = data;
     }
 }

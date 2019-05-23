@@ -12,4 +12,7 @@
 
     <dubbo:service interface="com.service.balance.BalanceService" ref="balanceService" timeout="30000"/>
     <bean id="balanceService" class="com.impl.balance.BalanceServiceImpl"/>
+
+    <dubbo:service interface="com.service.balance.BalanceBillLogService" ref="balanceBillLogService" timeout="30000"/>
+    <bean id="balanceBillLogService" class="com.impl.balance.BalanceBillLogServiceImpl"/>
 </beans>

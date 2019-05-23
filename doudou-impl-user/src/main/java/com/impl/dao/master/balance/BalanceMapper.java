@@ -16,16 +16,16 @@ public interface BalanceMapper {
     Balance getBalanceByUserId (@Param("userId") long userId);
 
     @Update("update balance SET state = #{state} where id = #{id}")
-    int updateState (@Param("id") int id,@Param("state")int state);
+    int updateState (@Param("id") long id,@Param("state")int state);
 
     @Update("<script> " +
                 "update balance" +
                 "<set>" +
-                    "<if test=\"balance != null and balance !=''\">balance=#{balance},</if>" +
-                    "<if test=\"freeze != null and freeze !=''\">freeze=#{freeze},</if>" +
-                    "<if test=\"totalBalance != null and totalBalance !=''\">total_balance=#{totalBalance},</if>" +
+                    "<if test=\"balance != null \">balance=#{balance},</if>" +
+                    "<if test=\"freeze != null \">freeze=#{freeze},</if>" +
+                    "<if test=\"totalBalance != null \">total_balance=#{totalBalance},</if>" +
                     "<if test=\"md5 != null and md5 !=''\">md5=#{md5},</if>" +
-                    "<if test=\"state !=null and state !=''\">state=#{state},</if>" +
+                    "<if test=\"state !=null \">state=#{state},</if>" +
                 "</set>" +
                     "where id=#{id}" +
             " </script> ")

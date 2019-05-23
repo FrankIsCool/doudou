@@ -26,16 +26,14 @@ public interface BalanceService {
      * @param state     更新后的状态
      * @return
      */
-    JsonResult<Integer> updateStateById(int id,int state);
+    JsonResult<Integer> updateStateById(long id,int state);
 
     /**
-     * 重置操作
+     * 重置资金账户操作
      * @param userId    用户id
-     * @param balance   可用资金
-     * @param freeze    冻结资金
      * @return
      */
-    JsonResult<Integer> updateBalance(long userId, BigDecimal balance,BigDecimal freeze);
+    JsonResult<Integer> updateBalance(long userId);
 
     /**
      * 充值操作
@@ -44,4 +42,11 @@ public interface BalanceService {
      * @return
      */
     JsonResult<Integer> recharge(long userId, BigDecimal rechargeBalance);
+    /**
+     * 消费操作
+     * @param userId    用户id
+     * @param consumptionBalance   消费金额
+     * @return
+     */
+    JsonResult<Integer> consumption(long userId, BigDecimal consumptionBalance);
 }

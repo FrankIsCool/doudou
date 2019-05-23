@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         JsonResult<Integer> result = new JsonResult<>();
         userNode = initUserNode(userNode);
         userNode = userRepository.save(userNode);
-        if(null==userNode.getId()||userNode.getId()<0){
+        if(EmptyUtil.isEmpty(userNode.getId())){
             return JsonResult.error(ExceptionCode.ERRO_101000);
         }
         result.setData(1);

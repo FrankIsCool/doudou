@@ -17,7 +17,7 @@ public class UserNode implements Serializable {
     public static final String USER_STATE_ABNORMAL = "3";
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     @Property(name = "userCode")
     private String userCode;
     @Property(name = "userName")
@@ -27,7 +27,7 @@ public class UserNode implements Serializable {
     @Property(name = "state")
     private String state;
     public UserNode() {}
-    public UserNode(Long id, String userCode, String userName, String password, String state) {
+    public UserNode(long id, String userCode, String userName, String password, String state) {
         this.id = id;
         this.userCode = userCode;
         this.userName = userName;
@@ -51,11 +51,11 @@ public class UserNode implements Serializable {
         this.password = password;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

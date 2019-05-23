@@ -18,7 +18,7 @@ public class Balance implements Serializable {
      */
     public static final int  STATE_FREEZE= 3;
     //id
-    private int id;
+    private long id;
     //用户id
     private long userId;
     //可用余额
@@ -42,11 +42,11 @@ public class Balance implements Serializable {
         this.state = state;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
