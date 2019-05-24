@@ -60,6 +60,17 @@ public class BalanceBillLogServiceImpl implements BalanceBillLogService {
     }
 
     @Override
+    public JsonResult<BigDecimal> getBalanceBillLogs(long userId, String startTime, String endTime, int operating) {
+        if(EmptyUtil.isEmpty(userId)||EmptyUtil.isEmpty(startTime)||
+                EmptyUtil.isEmpty(endTime)||EmptyUtil.isEmpty(operating)){
+            return JsonResult.error(ExceptionCode.ERRO_400);
+        }
+        JsonResult<BigDecimal> result = new JsonResult<>();
+        result.setData(balanceBillLogMapper.getBalance(userId,startTime,endTime,operating));
+        return result;
+    }
+
+    @Override
     public JsonResult<Balance> getBalances(long userId, long balanceId) {
         if(EmptyUtil.isEmpty(userId)||EmptyUtil.isEmpty(balanceId)){
             return JsonResult.error(ExceptionCode.ERRO_400);

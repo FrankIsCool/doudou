@@ -21,4 +21,6 @@ public interface BalanceBillLogMapper {
     @Select("select sum(balance) from balance_bill_log where user_id = #{userId} and balance_id = #{balanceId} and operating = #{operating}")
     BigDecimal getBalances (@Param("userId") long userId, @Param("balanceId") long balanceId, @Param("operating") int operating);
 
+    @Select("select sum(balance) from balance_bill_log where user_id = #{userId} and operating = #{operating} and create_time > #{startTime} and create_time < #{endTime} ")
+    BigDecimal getBalance (@Param("userId")long userId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("operating") int operating);
 }

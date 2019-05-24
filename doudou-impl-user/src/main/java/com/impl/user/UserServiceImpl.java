@@ -1,6 +1,5 @@
 package com.impl.user;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
@@ -18,7 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@com.alibaba.dubbo.config.annotation.Service
+@org.springframework.stereotype.Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -94,6 +94,14 @@ public class UserServiceImpl implements UserService {
         userLoginLogMapper.save(userLoginLog);
 
         result.setData(userLogin);
+        return result;
+    }
+
+    @Override
+    public JsonResult<List<UserNode>> getUserAll() {
+        List<UserNode> userNodeList = userRepository.getUserNodeList();
+        JsonResult<List<UserNode>> result = new JsonResult<>();
+        result.setData(userNodeList);
         return result;
     }
 
