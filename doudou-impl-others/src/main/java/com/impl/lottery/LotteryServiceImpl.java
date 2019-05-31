@@ -7,6 +7,7 @@ import com.common.lottery.JHLotteryUtil;
 import com.common.lottery.LotteryHistoryData;
 import com.common.lottery.LotteryResultData;
 import com.common.lottery.LotteryTypeData;
+import com.common.redis.RedisConfig;
 import com.common.weather.juhe.JHResult;
 import com.service.lottery.LotteryService;
 import com.service.redis.RedisService;
@@ -19,14 +20,14 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public JsonResult<LotteryTypeData> getLotteryType() {
         JsonResult<LotteryTypeData> result = new JsonResult<>();
-        LotteryTypeData lotteryTypeData = (LotteryTypeData) redisService.getObject("LotteryType");
+        LotteryTypeData lotteryTypeData = (LotteryTypeData) redisService.getObject(RedisConfig.LOTTERYTYPE);
         if(EmptyUtil.isNotEmpty(lotteryTypeData)){
             result.setData(lotteryTypeData);
             return result;
         }
         JHResult<LotteryTypeData> resultLotteryType = JHLotteryUtil.getLotteryType();
         if(EmptyUtil.isNotEmpty(resultLotteryType.getResult())){
-            redisService.set("LotteryType", resultLotteryType.getResult());
+            redisService.set(RedisConfig.LOTTERYTYPE, resultLotteryType.getResult());
             result.setData(resultLotteryType.getResult());
         }
         return result;
@@ -36,7 +37,7 @@ public class LotteryServiceImpl implements LotteryService {
     public JsonResult<LotteryResultData> getLotteryResult(String lotteryId, String lotteryNo) {
 
         JsonResult<LotteryResultData> result = new JsonResult<>();
-        LotteryResultData lotteryResultData = (LotteryResultData) redisService.getObject("Lottery"+lotteryId+"&"+lotteryNo);
+        LotteryResultData lotteryResultData = (LotteryResultData) redisService.getObject(RedisConfig.LOTTERY+lotteryId+"&"+lotteryNo);
         if(EmptyUtil.isNotEmpty(lotteryResultData)){
             result.setData(lotteryResultData);
             return result;

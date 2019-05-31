@@ -20,7 +20,6 @@ public class JedisClusterConfig {
         for (String ipPort:serverArray){
             String [] ipPortPair=ipPort.split(":");
             nodes.add(new HostAndPort(ipPortPair[0].trim(),Integer.valueOf(ipPortPair[1].trim())));
-
         }
         return  new JedisCluster(nodes,redisProperties.getCommandTimeout());
     }

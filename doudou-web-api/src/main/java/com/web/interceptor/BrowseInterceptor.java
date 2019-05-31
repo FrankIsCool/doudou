@@ -5,6 +5,8 @@ import com.common.token.TokenUtil;
 import com.common.token.TokenVo;
 import com.service.browse.BrowseLogService;
 import com.service.model.BrowseLog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 public class BrowseInterceptor implements HandlerInterceptor {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private BrowseLogService browseLogService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+        logger.info("------------------------------------");
         String source = request.getHeader("source");
         String url = request.getRequestURI();
         String token = request.getHeader("token");

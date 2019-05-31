@@ -57,11 +57,11 @@ public class BalanceReportServiceImpl implements BalanceReportService {
             JsonResult<BigDecimal> freezeResult = balanceBillLogService.getBalanceBillLogs(userId, startTime, endTime, BalanceBillLog.OPERATING_FREEZE);
             JsonResult<BigDecimal> unfreezeResult = balanceBillLogService.getBalanceBillLogs(userId, startTime, endTime, BalanceBillLog.OPERATING_UNFREEZE);
             //获取上次的统计情况
-            BalanceReport<ReportResultVo> balanceWeekReportOld = balanceReportMapper.getBalanceReport(userId, balanceResult.getData().getId(), BalanceBillLog.OPERATING_RECHARGE,
+            BalanceReport<BalanceReportResultVo> balanceWeekReportOld = balanceReportMapper.getBalanceReport(userId, balanceResult.getData().getId(), BalanceBillLog.OPERATING_RECHARGE,
                     lastStartTime + "至" + lastEndTime);
             if(EmptyUtil.isEmpty(balanceWeekReportOld)){
                 balanceWeekReportOld = new BalanceReport<>();
-                ReportResultVo weekBalanceJsonReportOld = new ReportResultVo();
+                BalanceReportResultVo weekBalanceJsonReportOld = new BalanceReportResultVo();
                 weekBalanceJsonReportOld.setBalance(new BigDecimal("0.00").setScale(2,BigDecimal.ROUND_DOWN));
                 weekBalanceJsonReportOld.setFreeze(new BigDecimal("0.00").setScale(2,BigDecimal.ROUND_DOWN));
                 weekBalanceJsonReportOld.setTotalBalance(new BigDecimal("0.00").setScale(2,BigDecimal.ROUND_DOWN));
@@ -71,7 +71,7 @@ public class BalanceReportServiceImpl implements BalanceReportService {
                 balanceWeekReportOld.setReportResultVo(weekBalanceJsonReportOld);
             }
             //封装这次的统计结果
-            BalanceReport<ReportResultVo> balanceReport = new BalanceReport<>();
+            BalanceReport<BalanceReportResultVo> balanceReport = new BalanceReport<>();
             balanceReport.setUserId(userId);
             balanceReport.setBalanceId(balanceResult.getData().getId());
             balanceReport.setType(reportType);
@@ -82,7 +82,7 @@ public class BalanceReportServiceImpl implements BalanceReportService {
             BigDecimal freeze = EmptyUtil.isEmpty(freezeResult.getData())?new BigDecimal("0.00").setScale(2, BigDecimal.ROUND_DOWN):freezeResult.getData();
             BigDecimal unfreeze = EmptyUtil.isEmpty(unfreezeResult.getData())?new BigDecimal("0.00").setScale(2,BigDecimal.ROUND_DOWN):unfreezeResult.getData();
             //封装统计结果中的子集结果数据
-            ReportResultVo weekBalanceJsonReport = new ReportResultVo();
+            BalanceReportResultVo weekBalanceJsonReport = new BalanceReportResultVo();
             weekBalanceJsonReport.setRecharge(recharge);
             weekBalanceJsonReport.setConsumption(consumption);
             weekBalanceJsonReport.setNum(num);

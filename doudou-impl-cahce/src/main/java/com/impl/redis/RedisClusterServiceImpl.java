@@ -4,10 +4,12 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.common.serialize.SerializeUtil;
 import com.impl.config.JedisClusterConfig;
 import com.service.redis.RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class RedisClusterServiceImpl implements RedisService {
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private JedisClusterConfig jedisClusterConfig;
 
@@ -19,7 +21,7 @@ public class RedisClusterServiceImpl implements RedisService {
             if("OK".equals(str))
                 return true;
         }catch (Exception ex){
-            System.out.println(ex);
+            logger.error("redis缓存数据错误：",ex);
         }
         return false;
     }
@@ -31,7 +33,7 @@ public class RedisClusterServiceImpl implements RedisService {
             if("OK".equals(str))
                 return true;
         }catch (Exception ex){
-            System.out.println(ex);
+            logger.error("redis缓存数据错误：",ex);
         }
         return false;
     }
@@ -48,6 +50,7 @@ public class RedisClusterServiceImpl implements RedisService {
         try {
             str=jedisClusterConfig.getJedisCluster().get(key);
         }catch (Exception ex){
+            logger.error("redis缓存数据错误：",ex);
         }
         return str;
     }

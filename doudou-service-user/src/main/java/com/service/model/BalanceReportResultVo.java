@@ -3,7 +3,7 @@ package com.service.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ReportResultVo implements Serializable {
+public class BalanceReportResultVo implements Serializable {
     //第几周
     private int num;
     //充值金额
