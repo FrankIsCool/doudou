@@ -1,5 +1,9 @@
 package com.common.object;
 
+import com.common.http.HttpUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ObjectUtil {
-
+    private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
     /**
      * 根据实体类组装成map<属性名，属性值>
      * @param object    实体类
@@ -38,8 +42,10 @@ public class ObjectUtil {
             Object value = method.invoke(object, new Object[] {});
             return value;
         } catch (Exception e) {
-            return null;
+            logger.error("get object field value is error: fieldName = "+fieldName+",object = "+object,e);
+            e.printStackTrace();
         }
+        return null;
     }
     /**
      * 数组转对象
@@ -55,8 +61,10 @@ public class ObjectUtil {
             ois.close();
             bis.close();
         } catch (IOException ex) {
+            logger.error("bytes to object is error: bytes = "+bytes.toString(),ex);
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            logger.error("bytes to object is error: bytes = "+bytes.toString(),ex);
             ex.printStackTrace();
         }
         return obj;

@@ -22,6 +22,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
@@ -40,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HttpUtil {
-
+    private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
     private static PoolingHttpClientConnectionManager connMgr;
     private static RequestConfig requestConfig;
     private static final int MAX_TIMEOUT = 30000;
@@ -152,8 +154,10 @@ public class HttpUtil {
                 result = IOUtils.toString(instream, "UTF-8");
             }
         } catch (IOException e) {
+            logger.error("seed http is error：url="+url+".headers:"+headers.toString()+".params:"+params.toString(),e);
             e.printStackTrace();
         } catch (Exception e) {
+            logger.error("seed http is error：url="+url+".headers:"+headers.toString()+".params:"+params.toString(),e);
             e.printStackTrace();
         }
         return result;
@@ -194,6 +198,7 @@ public class HttpUtil {
             HttpEntity entity = response.getEntity();
             httpStr = EntityUtils.toString(entity, "UTF-8");
         } catch (IOException e) {
+            logger.error("seed http is error：url="+apiUrl+".params:"+params.toString(),e);
             e.printStackTrace();
         } finally {
             if (response != null) {
@@ -230,6 +235,7 @@ public class HttpUtil {
             System.out.println(response.getStatusLine().getStatusCode());
             httpStr = EntityUtils.toString(entity, "UTF-8");
         } catch (IOException e) {
+            logger.error("seed http is error：url="+apiUrl+".params:"+json.toString(),e);
             e.printStackTrace();
         } finally {
             if (response != null) {
@@ -275,6 +281,7 @@ public class HttpUtil {
             }
             httpStr = EntityUtils.toString(entity, "utf-8");
         } catch (Exception e) {
+            logger.error("seed http is error：url="+apiUrl+".params:"+params.toString(),e);
             e.printStackTrace();
         } finally {
             if (response != null) {
@@ -317,6 +324,7 @@ public class HttpUtil {
             }
             httpStr = EntityUtils.toString(entity, "utf-8");
         } catch (Exception e) {
+            logger.error("seed http is error：url="+apiUrl+".params:"+json.toString(),e);
             e.printStackTrace();
         } finally {
             if (response != null) {
@@ -364,6 +372,7 @@ public class HttpUtil {
                 }
             });
         } catch (GeneralSecurityException e) {
+            logger.error("seed http is error",e);
             e.printStackTrace();
         }
         return sslsf;

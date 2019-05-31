@@ -21,7 +21,6 @@ public class BrowseInterceptor implements HandlerInterceptor {
     private BrowseLogService browseLogService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        logger.info("------------------------------------");
         String source = request.getHeader("source");
         String url = request.getRequestURI();
         String token = request.getHeader("token");
@@ -39,7 +38,6 @@ public class BrowseInterceptor implements HandlerInterceptor {
         browseLog.setUrl(url);
         browseLog.setCreateTime(new Date());
         browseLogService.save(browseLog);
-//        browseLogService.save(url,userId,Integer.valueOf(source),null,null);
         return true;
     }
     @Override

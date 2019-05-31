@@ -5,6 +5,8 @@ import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
 import com.common.token.TokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +16,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class LoginInterceptor implements HandlerInterceptor {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
 

@@ -53,7 +53,7 @@ public class RedisServiceImpl implements RedisService {
             operations.set(key, value);
             result = true;
         } catch (Exception e) {
-            logger.error("redis缓存数据错误：key="+key+"，value"+ JSON.toJSONString(value),e);
+            logger.error("redis save value is error：key="+key+"，value"+ JSON.toJSONString(value),e);
         }
         return result;
     }
@@ -71,7 +71,7 @@ public class RedisServiceImpl implements RedisService {
             redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
             result = true;
         } catch (Exception e) {
-            logger.error("redis缓存数据错误：key="+key
+            logger.error("redis save value is error：key="+key
                     +"，value"+ JSON.toJSONString(value)
                     +"，expireTime"+ expireTime,e);
         }

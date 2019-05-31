@@ -1,6 +1,7 @@
 package com.impl.redis;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.common.serialize.SerializeUtil;
 import com.impl.config.JedisClusterConfig;
 import com.service.redis.RedisService;
@@ -21,7 +22,8 @@ public class RedisClusterServiceImpl implements RedisService {
             if("OK".equals(str))
                 return true;
         }catch (Exception ex){
-            logger.error("redis缓存数据错误：",ex);
+            logger.error("redis save value is error：key="+key
+                    +"，value"+ JSON.toJSONString(value),ex);
         }
         return false;
     }
@@ -33,7 +35,8 @@ public class RedisClusterServiceImpl implements RedisService {
             if("OK".equals(str))
                 return true;
         }catch (Exception ex){
-            logger.error("redis缓存数据错误：",ex);
+            logger.error("redis save value is error：key="+key
+                    +"，value"+ JSON.toJSONString(value),ex);
         }
         return false;
     }
@@ -50,7 +53,7 @@ public class RedisClusterServiceImpl implements RedisService {
         try {
             str=jedisClusterConfig.getJedisCluster().get(key);
         }catch (Exception ex){
-            logger.error("redis缓存数据错误：",ex);
+            logger.error("redis get value is error：key="+key,ex);
         }
         return str;
     }

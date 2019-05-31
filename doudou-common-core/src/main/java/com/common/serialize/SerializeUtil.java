@@ -1,10 +1,15 @@
 package com.common.serialize;
+import com.common.http.HttpUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 public class SerializeUtil {
+    private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
     /**
      * java对象序列化成字节数组
      *
@@ -20,11 +25,13 @@ public class SerializeUtil {
             byte[] bytes = baos.toByteArray();
             return bytes;
         } catch (IOException ex) {
+            logger.error("Serialize object is error：object="+object.toString(),ex);
             throw new RuntimeException(ex.getMessage(), ex);
         } finally {
             try {
                 oos.close();
-            } catch (Exception e) {
+            } catch (Exception ex) {
+                logger.error("Serialize object close is error：object="+object.toString(),ex);
             }
         }
     }
@@ -44,13 +51,16 @@ public class SerializeUtil {
             Object object = ois.readObject();
             return object;
         } catch (IOException ex) {
+            logger.error("Serialize toObject is error：bytes="+bytes.toString(),ex);
             throw new RuntimeException(ex.getMessage(), ex);
         } catch (ClassNotFoundException ex) {
+            logger.error("Serialize toObject is error：bytes="+bytes.toString(),ex);
             throw new RuntimeException(ex.getMessage(), ex);
         } finally {
             try {
                 ois.close();
-            } catch (Exception e) {
+            } catch (Exception ex) {
+                logger.error("Serialize object close is error：bytes="+bytes.toString(),ex);
             }
         }
     }
