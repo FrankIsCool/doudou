@@ -6,14 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="service-balance" />
         <module name="service-user" />
         <module name="common-core" />
-        <module name="impl-cahce" />
         <module name="service-cache" />
+        <module name="web-api" />
+        <module name="impl-balance" />
         <module name="service-others" />
         <module name="impl-user" />
         <module name="impl-others" />
-        <module name="web-api" />
+        <module name="impl-cahce" />
         <module name="doudou-common-core" />
       </profile>
     </annotationProcessing>
@@ -21,10 +23,12 @@
       <module name="common-core" target="1.8" />
       <module name="doudou" target="1.8" />
       <module name="doudou-common-core" target="6" />
+      <module name="impl-balance" target="8" />
       <module name="impl-cahce" target="8" />
       <module name="impl-neo" target="1.5" />
       <module name="impl-others" target="1.8" />
       <module name="impl-user" target="8" />
+      <module name="service-balance" target="1.8" />
       <module name="service-cache" target="1.8" />
       <module name="service-neo4j" target="1.5" />
       <module name="service-others" target="1.8" />
@@ -35,9 +39,11 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-core" options="-parameters" />
+      <module name="impl-balance" options="-parameters" />
       <module name="impl-cahce" options="-parameters" />
       <module name="impl-others" options="-parameters" />
       <module name="impl-user" options="-parameters" />
+      <module name="service-balance" options="-parameters" />
       <module name="service-cache" options="-parameters" />
       <module name="service-others" options="-parameters" />
       <module name="service-user" options="-parameters" />

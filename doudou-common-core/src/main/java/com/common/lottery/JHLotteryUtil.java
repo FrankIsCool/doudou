@@ -6,6 +6,7 @@ import com.common.http.HttpUtil;
 import com.common.weather.juhe.JHResult;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JHLotteryUtil {
@@ -22,7 +23,7 @@ public class JHLotteryUtil {
         params.put("key",KEY);
         String s = HttpUtil.doGet(URL+"/types", params);
         JHResult jhResult = JSONObject.parseObject(s, JHResult.class);
-        LotteryTypeData lotteryTypeData = JSONObject.parseObject(jhResult.getResult().toString(), LotteryTypeData.class);
+        List<LotteryTypeData> lotteryTypeData = JSONObject.parseArray(jhResult.getResult().toString(), LotteryTypeData.class);
         jhResult.setResult(lotteryTypeData);
         return jhResult;
     }

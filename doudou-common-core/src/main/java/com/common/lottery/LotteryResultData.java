@@ -2,9 +2,10 @@ package com.common.lottery;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class LotteryResultData {
+public class LotteryResultData implements Serializable {
 
     @JSONField(name = "lottery_id")
     private String lotteryId;//彩票编码

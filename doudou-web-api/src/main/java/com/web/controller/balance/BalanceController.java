@@ -48,7 +48,7 @@ public class BalanceController {
     @RequestMapping(value ="/recharge", method= RequestMethod.GET)
     @ApiOperation(value="充值")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType="query", name = "balance", value = "充值金额", required = true, dataType = "BigDecimal"),
+            @ApiImplicitParam(paramType="query", name = "com.service.balance", value = "充值金额", required = true, dataType = "BigDecimal"),
     })
     public JsonResult<Integer> rechargeBalance(HttpServletRequest request, BigDecimal balance){
         if(EmptyUtil.isEmpty(balance)){

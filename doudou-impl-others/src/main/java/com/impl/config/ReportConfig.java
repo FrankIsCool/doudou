@@ -25,8 +25,8 @@ public class ReportConfig {
      */
     @Scheduled(cron="0/5 * * * * ?")
     private void ssBalaceReport() {
-        logger.info("定时任务《浏览记录的统计》，开始执行---------");
-        browseLogReportService.dayBrowseLogReport();
-        logger.info("定时任务《浏览记录的统计》，执行结束---------");
+//        logger.info("定时任务《浏览记录的统计》，开始执行---------");
+//        browseLogReportService.dayBrowseLogReport();
+//        logger.info("定时任务《浏览记录的统计》，执行结束---------");
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface BalanceBillLogMapper {
 
-    @Insert("insert into balance_bill_log (user_id,balance_id,balance,operating,remark,create_time) value(#{userId},#{balanceId},#{balance},#{operating},#{remark},NOW())")
+    @Insert("insert into balance_bill_log (user_id,balance_id,com.service.balance,operating,remark,create_time) value(#{userId},#{balanceId},#{com.service.balance},#{operating},#{remark},NOW())")
     int save (BalanceBillLog balanceLog);
 
     @Select("select * from balance_bill_log where user_id = #{userId} and (operating = 1 or operating = 2) LIMIT #{pageNum},#{pageSize}")
@@ -18,9 +18,9 @@ public interface BalanceBillLogMapper {
             @Result(column = "balance_id", property = "balanceId", javaType = java.lang.Integer.class)})
     List<BalanceBillLog> getBalanceBillLogs (@Param("userId") long userId,@Param("pageNum")Integer pageNum,@Param("pageSize")Integer pageSize);
 
-    @Select("select sum(balance) from balance_bill_log where user_id = #{userId} and balance_id = #{balanceId} and operating = #{operating}")
+    @Select("select sum(com.service.balance) from balance_bill_log where user_id = #{userId} and balance_id = #{balanceId} and operating = #{operating}")
     BigDecimal getBalances (@Param("userId") long userId, @Param("balanceId") long balanceId, @Param("operating") int operating);
 
-    @Select("select sum(balance) from balance_bill_log where user_id = #{userId} and operating = #{operating} and create_time > #{startTime} and create_time < #{endTime} ")
+    @Select("select sum(com.service.balance) from balance_bill_log where user_id = #{userId} and operating = #{operating} and create_time > #{startTime} and create_time < #{endTime} ")
     BigDecimal getBalance (@Param("userId")long userId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("operating") int operating);
 }

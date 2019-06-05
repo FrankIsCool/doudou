@@ -2,7 +2,9 @@ package com.common.lottery;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class LotteryResList {
+import java.io.Serializable;
+
+public class LotteryResList  implements Serializable {
     @JSONField(name = "lottery_id")
     private String lotteryId;//		彩票ID
     @JSONField(name = "lottery_res")
