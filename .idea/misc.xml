@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/doudou-impl-article" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-balance" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-cahce" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-others" />

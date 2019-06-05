@@ -18,7 +18,7 @@ public class JHLotteryUtil {
      * 获取支持的彩票类型
      * @return
      */
-    public static JHResult<LotteryTypeData> getLotteryType(){
+    public static JHResult<List<LotteryTypeData>> getLotteryType(){
         Map params = new HashMap();
         params.put("key",KEY);
         String s = HttpUtil.doGet(URL+"/types", params);

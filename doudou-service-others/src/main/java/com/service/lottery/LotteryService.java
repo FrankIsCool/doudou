@@ -5,12 +5,14 @@ import com.common.lottery.LotteryHistoryData;
 import com.common.lottery.LotteryResultData;
 import com.common.lottery.LotteryTypeData;
 
+import java.util.List;
+
 public interface LotteryService {
     /**
      * 获取彩票类型
      * @return
      */
-    JsonResult<LotteryTypeData> getLotteryType();
+    JsonResult<List<LotteryTypeData>> getLotteryType();
     /**
      * 获取彩票结果
      * @param lotteryId 彩票id

@@ -12,20 +12,23 @@ import com.common.weather.juhe.JHResult;
 import com.service.lottery.LotteryService;
 import com.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 @Service
 public class LotteryServiceImpl implements LotteryService {
     @Autowired
     private RedisService redisService;
 
     @Override
-    public JsonResult<LotteryTypeData> getLotteryType() {
-        JsonResult<LotteryTypeData> result = new JsonResult<>();
-        LotteryTypeData lotteryTypeData = (LotteryTypeData) redisService.getObject(RedisConfig.LOTTERYTYPE);
+    public JsonResult<List<LotteryTypeData>> getLotteryType() {
+        JsonResult<List<LotteryTypeData>> result = new JsonResult<>();
+        List<LotteryTypeData> lotteryTypeData = (List<LotteryTypeData>) redisService.getObject(RedisConfig.LOTTERYTYPE);
         if(EmptyUtil.isNotEmpty(lotteryTypeData)){
             result.setData(lotteryTypeData);
             return result;
         }
-        JHResult<LotteryTypeData> resultLotteryType = JHLotteryUtil.getLotteryType();
+        JHResult<List<LotteryTypeData>> resultLotteryType = JHLotteryUtil.getLotteryType();
         if(EmptyUtil.isNotEmpty(resultLotteryType.getResult())){
             redisService.set(RedisConfig.LOTTERYTYPE, resultLotteryType.getResult());
             result.setData(resultLotteryType.getResult());
@@ -44,7 +47,7 @@ public class LotteryServiceImpl implements LotteryService {
         }
         JHResult<LotteryResultData> resultLotteryType = JHLotteryUtil.getLotteryResult(lotteryId,lotteryNo);
         if(EmptyUtil.isNotEmpty(resultLotteryType.getResult())){
-            redisService.set("Lottery"+lotteryId+"&"+lotteryNo, resultLotteryType.getResult());
+            redisService.set(RedisConfig.LOTTERY+lotteryId+"&"+lotteryNo, resultLotteryType.getResult());
             result.setData(resultLotteryType.getResult());
         }
         return result;
@@ -59,5 +62,4 @@ public class LotteryServiceImpl implements LotteryService {
         }
         return result;
     }
-
 }

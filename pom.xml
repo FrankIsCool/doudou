@@ -40,6 +40,8 @@
 
 
         <module>doudou-web-api</module>
+        <module>doudou-service-article</module>
+        <module>doudou-impl-article</module>
 
 
     </modules>
