@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "v1/lottery")
 @Api(value="LotteryController",tags={"彩票"})
@@ -24,7 +26,7 @@ public class LotteryController {
 
     @RequestMapping(value ="/type", method= RequestMethod.GET)
     @ApiOperation(value="彩票类型")
-    public JsonResult<LotteryTypeData> getLotteryType(){
+    public JsonResult<List<LotteryTypeData>> getLotteryType(){
         return lotteryService.getLotteryType();
     }
     @RequestMapping(value ="/result", method= RequestMethod.GET)

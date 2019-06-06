@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="impl-label:war">
+    <output-path>$PROJECT_DIR$/doudou-impl-label/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>impl-label</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="impl-label-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="impl-label:war exploded" />
+    </root>
+  </artifact>
+</component>

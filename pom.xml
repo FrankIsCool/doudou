@@ -42,6 +42,8 @@
         <module>doudou-web-api</module>
         <module>doudou-service-article</module>
         <module>doudou-impl-article</module>
+        <module>doudou-service-label</module>
+        <module>doudou-impl-label</module>
 
 
     </modules>
