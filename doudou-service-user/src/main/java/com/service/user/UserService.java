@@ -18,4 +18,6 @@ public interface UserService {
 
     JsonResult<List<UserNode>> getUserAll();
 
+    JsonResult<List<UserNode>> getUsers(List<Long> ids);
+
 }

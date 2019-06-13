@@ -1,5 +1,6 @@
 package com.web.controller.user;
 
+import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
 import com.service.model.UserNode;
@@ -29,6 +30,9 @@ public class UserRegisController {
     })
 
     public JsonResult<Integer> userRegis(String userName,String password,String confirmPassword){
+        if(EmptyUtil.isEmpty(userName,password,confirmPassword)){
+            return JsonResult.error(ExceptionCode.ERRO_100000);
+        }
         if(!password.equals(confirmPassword)){
            return JsonResult.error(ExceptionCode.ERRO_101001);
         }

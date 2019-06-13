@@ -1,7 +1,11 @@
 package com.service.model;
 
+import com.alibaba.fastjson.JSONObject;
+import com.common.empty.EmptyUtil;
+
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class Article implements Serializable {
 
@@ -17,13 +21,39 @@ public class Article implements Serializable {
     private int browseNum;
     //点赞次数
     private int likeNum;
+    //标签字符串
+    private String labels;
     //创建时间
     private Date createTime;
 //============================================================
+    //标签字符串
+    private List<Label> labelsVo;
     //作者名
     private String userName;
     //是否点赞
     private boolean isLike;
+
+    public String getLabels() {
+        return labels;
+    }
+
+    public void setLabels(String labels) {
+        if(EmptyUtil.isNotEmpty(labels)){
+            this.labelsVo = JSONObject.parseArray(labels, Label.class);
+            this.labels = labels;
+        }
+    }
+
+    public List<Label> getLabelsVo() {
+        return labelsVo;
+    }
+
+    public void setLabelsVo(List<Label> labelsVo) {
+        if(EmptyUtil.isNotEmpty(labelsVo)){
+            this.labels = JSONObject.toJSONString(labelsVo);
+            this.labelsVo = labelsVo;
+        }
+    }
 
     public String getUserName() {
         return userName;

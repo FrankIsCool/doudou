@@ -18,9 +18,11 @@
 
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <dubbo:protocol name="dubbo" port="20890" threadpool="fixed"/>
-    <import resource="classpath*:dubbo-user-service.xml" />
-    <import resource="classpath*:dubbo-other-service.xml" />
-    <import resource="classpath*:dubbo-redis-service.xml" />
-    <import resource="classpath*:dubbo-balance-service.xml" />
-    <import resource="classpath*:dubbo-article-service.xml" />
+<!--    <import resource="classpath*:dubbo-user-service.xml" />-->
+<!--    <import resource="classpath*:dubbo-other-service.xml" />-->
+<!--    <import resource="classpath*:dubbo-redis-service.xml" />-->
+<!--    <import resource="classpath*:dubbo-balance-service.xml" />-->
+<!--    <import resource="classpath*:dubbo-article-service.xml" />-->
+<!--    <import resource="classpath*:dubbo-label-service.xml" />-->
+    <import resource="classpath*:dubbo-**.xml" />
 </beans>

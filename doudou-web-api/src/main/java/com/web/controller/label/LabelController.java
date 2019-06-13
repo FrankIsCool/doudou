@@ -50,6 +50,9 @@ public class LabelController {
         if(EmptyUtil.isEmpty(pageSize)||pageSize<1){
             pageSize = 20;
         }
+        if(EmptyUtil.isEmpty(state)){
+            state = 1;
+        }
         return labelService.getLabels(state,pageNum,pageSize);
     }
     @RequestMapping(value ="/updateState", method= RequestMethod.GET)

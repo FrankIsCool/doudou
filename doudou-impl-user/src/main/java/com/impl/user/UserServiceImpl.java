@@ -14,6 +14,7 @@ import com.service.redis.RedisService;
 import com.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,10 +32,7 @@ public class UserServiceImpl implements UserService {
     public JsonResult<Integer> saveUser(UserNode userNode) {
         JsonResult<Integer> result = new JsonResult<>();
         userNode = initUserNode(userNode);
-        userNode = userRepository.save(userNode);
-        if(EmptyUtil.isEmpty(userNode.getId())){
-            return JsonResult.error(ExceptionCode.ERRO_101000);
-        }
+        userRepository.saveUser(userNode.getUserCode(), userNode.getUserName(), userNode.getPassword(), userNode.getState());
         result.setData(1);
         return result;
     }
@@ -105,10 +103,24 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Override
+    public JsonResult<List<UserNode>> getUsers(List<Long> ids) {
+        if(EmptyUtil.isEmpty(ids)){
+            return JsonResult.error(ExceptionCode.ERRO_100000);
+        }
+        JsonResult<List<UserNode>> result = new JsonResult<>();
+        List<UserNode> userNodes = new ArrayList<>();
+        for(long id : ids){
+            userNodes.add(userRepository.getUserById(id));
+        }
+        result.setData(userNodes);
+        return result;
+    }
+
     /**
      * 初始化用户信息
-     * @param userNode 用户节点
-     * @return 用户节点
+     * @param userNode  用户节点
+     * @return          用户节点
      */
     private UserNode initUserNode(UserNode userNode){
         userNode.setUserCode(UUID.randomUUID().toString().replace("-",""));

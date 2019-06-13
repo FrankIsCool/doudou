@@ -20,5 +20,4 @@
     <dubbo:protocol name="dubbo" port="20885" />
     <!-- 这里是具体实现类,id和上面的暴露的服务接口ref要一致,dubbo就是通过这个来注册对应的服务 -->
     <import resource="classpath*:dubbo-provider-service.xml" />
-    <import resource="classpath*:dubbo-redis-service.xml" />
 </beans>

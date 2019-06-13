@@ -19,6 +19,13 @@ public interface UserRepository extends Neo4jRepository<UserNode,Long> {
     @Query("MATCH (n:User) where n.userCode={userCode}  RETURN n")
     UserNode getUserByCode(@Param("userCode") String userCode);
 
+    @Query("CREATE (n:User{userCode:{userCode},userName:{userName},password:{password},state:{state}})")
+    void saveUser(@Param("userCode") String userCode,@Param("userName") String userName,
+                 @Param("password") String password, @Param("state") String state);
+
+    @Query("CREATE (n:User{userCode:{userNode.userCode},userName:{userNode.userName},password:{userNode.password},state:{userNode.state}})")
+    void saveUser(@Param("userNode")UserNode userNode);
+
     @Query("MATCH (n:User) where id(n)={id}  RETURN n")
     UserNode getUserById(@Param("id") Long id);
 }

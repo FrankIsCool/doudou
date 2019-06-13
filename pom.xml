@@ -30,21 +30,20 @@
         <module>doudou-service-others</module>
         <module>doudou-service-cache</module>
         <module>doudou-service-balance</module>
-
-
+        <module>doudou-service-article</module>
+        <module>doudou-service-label</module>
 
         <module>doudou-impl-others</module>
         <module>doudou-impl-user</module>
         <module>doudou-impl-cahce</module>
         <module>doudou-impl-balance</module>
+        <module>doudou-impl-label</module>
+        <module>doudou-impl-article</module>
+
+
 
 
         <module>doudou-web-api</module>
-        <module>doudou-service-article</module>
-        <module>doudou-impl-article</module>
-        <module>doudou-service-label</module>
-        <module>doudou-impl-label</module>
-
 
     </modules>
     <dependencies>

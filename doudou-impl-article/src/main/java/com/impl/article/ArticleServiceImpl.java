@@ -1,6 +1,7 @@
 package com.impl.article;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSONObject;
 import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
@@ -11,6 +12,9 @@ import com.service.article.ArticleService;
 import com.service.model.*;
 import com.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -34,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public JsonResult<Integer> addArticle(String title, String content, long userId) {
+    public JsonResult<Integer> addArticle(String title, String content,List<Label> labels, long userId) {
 
         if(EmptyUtil.isEmpty(title,content)||EmptyUtil.isEmpty(userId)){
             return JsonResult.error(ExceptionCode.ERRO_100000);
@@ -42,6 +46,9 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = new Article();
         article.setTitle(title);
         article.setContent(content);
+        if(EmptyUtil.isNotEmpty(labels)){
+            article.setLabelsVo(labels);
+        }
         article.setUserId(userId);
         return addArticle(article);
     }
@@ -127,6 +134,63 @@ public class ArticleServiceImpl implements ArticleService {
             result.setData(articleMapper.subLike(articleId));
             return result;
         }
+        return result;
+    }
+
+    @Override
+    public JsonResult<Integer> updateLabel(long articleId, List<Label> labels) {
+        if(EmptyUtil.isEmpty(articleId) || EmptyUtil.isEmpty(labels)){
+            return JsonResult.error(ExceptionCode.ERRO_100000);
+        }
+        JsonResult<Integer> result = new JsonResult<>();
+        result.setData(articleMapper.updateLabels(articleId, JSONObject.toJSONString(labels)));
+        return result;
+    }
+
+    @Override
+    public JsonResult<List<Article>> getArticles(Integer pageNum, Integer pageSize) {
+        if(EmptyUtil.isEmpty(pageNum)||pageNum<1){
+            pageNum = 1;
+        }
+        if(EmptyUtil.isEmpty(pageSize)||pageSize<1){
+            pageSize = 20;
+        }
+        pageNum=(pageNum-1)*pageSize;
+        JsonResult<List<Article>> result = new JsonResult<>();
+        List<Article> articles = articleMapper.getArticles(pageNum, pageSize);
+        if(EmptyUtil.isEmpty(articles)){
+            result.setData(articles);
+            return result;
+        }
+        //去重（用户id），获取最少的用户id及对应的文章
+        Map<Long,List<Article>> map = new HashMap<>();
+        for (Article article : articles) {
+            List<Article> articles1 ;
+            if(!map.containsKey(article.getUserId())){
+                articles1 = new ArrayList<>();
+            }else {
+                articles1 = map.get(article.getUserId());
+            }
+            articles1.add(article);
+            map.put(article.getUserId(),articles1);
+        }
+        //获取所有的作者
+        Set<Long> keys = map.keySet();
+        List<Long> userIds = new ArrayList<>();
+        for(long userId:keys){
+            userIds.add(userId);
+        }
+        //组装数据
+        articles.clear();
+        JsonResult<List<UserNode>> users = userService.getUsers(userIds);
+        for(UserNode userNode:users.getData()){
+            List<Article> articles1 = map.get(userNode.getId());
+            for(Article article : articles1){
+                article.setUserName(userNode.getUserName());
+            }
+            articles.addAll(articles1);
+        }
+        result.setData(articles);
         return result;
     }
 }

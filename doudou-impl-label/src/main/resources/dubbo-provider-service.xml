@@ -6,15 +6,6 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://code.alibabatech.com/schema/dubbo
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-    <dubbo:service interface="com.service.ip.IPService" ref="ipService" timeout="30000"/>
-    <bean id="ipService" class="com.impl.ip.IPServiceImpl"></bean>
-
-    <dubbo:service interface="com.service.day.DayService" ref="dayService" timeout="30000"/>
-    <bean id="dayService" class="com.impl.day.DayServiceImpl"></bean>
-
-    <dubbo:service interface="com.service.lottery.LotteryService" ref="lotteryService" timeout="30000"/>
-    <bean id="lotteryService" class="com.impl.lottery.LotteryServiceImpl"></bean>
-
-    <dubbo:service interface="com.service.browse.BrowseLogService" ref="browseLogService" timeout="30000"/>
-    <bean id="browseLogService" class="com.impl.browse.BrowseLogServiceImpl"></bean>
+    <dubbo:service interface="com.service.label.LabelService" ref="labelService" timeout="30000"/>
+    <bean id="labelService" class="com.impl.label.LabelServiceImpl"></bean>
 </beans>
