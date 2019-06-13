@@ -8,12 +8,14 @@
     <file url="file://$PROJECT_DIR$/doudou-impl-cahce" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-impl-label" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-impl-others" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/doudou-impl-store" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-impl-user" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-service-article" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-service-balance" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-service-cache" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-service-label" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-service-others" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/doudou-service-store" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-service-user" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/doudou-web-api" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />

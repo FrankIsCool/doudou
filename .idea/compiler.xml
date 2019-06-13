@@ -15,6 +15,8 @@
         <module name="web-api" />
         <module name="impl-balance" />
         <module name="service-user" />
+        <module name="service-store" />
+        <module name="impl-store" />
         <module name="doudou-common-core" />
         <module name="common-core" />
         <module name="impl-label" />
@@ -33,6 +35,7 @@
       <module name="impl-label" target="1.8" />
       <module name="impl-neo" target="1.5" />
       <module name="impl-others" target="1.8" />
+      <module name="impl-store" target="1.8" />
       <module name="impl-user" target="8" />
       <module name="service-article" target="1.8" />
       <module name="service-balance" target="1.8" />
@@ -40,6 +43,7 @@
       <module name="service-label" target="1.8" />
       <module name="service-neo4j" target="1.5" />
       <module name="service-others" target="1.8" />
+      <module name="service-store" target="1.8" />
       <module name="service-user" target="1.8" />
       <module name="web-api" target="1.7" />
     </bytecodeTargetLevel>
@@ -52,12 +56,14 @@
       <module name="impl-cahce" options="-parameters" />
       <module name="impl-label" options="-parameters" />
       <module name="impl-others" options="-parameters" />
+      <module name="impl-store" options="-parameters" />
       <module name="impl-user" options="-parameters" />
       <module name="service-article" options="-parameters" />
       <module name="service-balance" options="-parameters" />
       <module name="service-cache" options="-parameters" />
       <module name="service-label" options="-parameters" />
       <module name="service-others" options="-parameters" />
+      <module name="service-store" options="-parameters" />
       <module name="service-user" options="-parameters" />
       <module name="web-api" options="-parameters" />
     </option>

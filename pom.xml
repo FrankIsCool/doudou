@@ -44,6 +44,8 @@
 
 
         <module>doudou-web-api</module>
+        <module>doudou-service-store</module>
+        <module>doudou-impl-store</module>
 
     </modules>
     <dependencies>

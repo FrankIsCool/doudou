@@ -9,12 +9,14 @@
       <module fileurl="file://$PROJECT_DIR$/doudou-impl-cahce/impl-cahce.iml" filepath="$PROJECT_DIR$/doudou-impl-cahce/impl-cahce.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-impl-label/impl-label.iml" filepath="$PROJECT_DIR$/doudou-impl-label/impl-label.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-impl-others/impl-others.iml" filepath="$PROJECT_DIR$/doudou-impl-others/impl-others.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-store/impl-store.iml" filepath="$PROJECT_DIR$/doudou-impl-store/impl-store.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-impl-user/impl-user.iml" filepath="$PROJECT_DIR$/doudou-impl-user/impl-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-service-article/service-article.iml" filepath="$PROJECT_DIR$/doudou-service-article/service-article.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-service-balance/service-balance.iml" filepath="$PROJECT_DIR$/doudou-service-balance/service-balance.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-service-cache/service-cache.iml" filepath="$PROJECT_DIR$/doudou-service-cache/service-cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-service-label/service-label.iml" filepath="$PROJECT_DIR$/doudou-service-label/service-label.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-service-others/service-others.iml" filepath="$PROJECT_DIR$/doudou-service-others/service-others.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-store/service-store.iml" filepath="$PROJECT_DIR$/doudou-service-store/service-store.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-service-user/service-user.iml" filepath="$PROJECT_DIR$/doudou-service-user/service-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/doudou-web-api/web-api.iml" filepath="$PROJECT_DIR$/doudou-web-api/web-api.iml" />
     </modules>

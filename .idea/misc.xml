@@ -6,6 +6,7 @@
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-cahce" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-label" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-others" />
+    <file type="web" url="file://$PROJECT_DIR$/doudou-impl-store" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-impl-user" />
     <file type="web" url="file://$PROJECT_DIR$/doudou-web-api" />
   </component>
