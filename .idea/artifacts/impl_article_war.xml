@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="impl-article:war">
+    <output-path>$PROJECT_DIR$/doudou-impl-article/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>impl-article</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="impl-article-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="impl-article:war exploded" />
+    </root>
+  </artifact>
+</component>

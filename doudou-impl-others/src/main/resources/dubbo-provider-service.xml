@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <dubbo:service interface="com.service.ip.IPService" ref="ipService" timeout="30000"/>
+    <bean id="ipService" class="com.impl.ip.IPServiceImpl"></bean>
+
+    <dubbo:service interface="com.service.day.DayService" ref="dayService" timeout="30000"/>
+    <bean id="dayService" class="com.impl.day.DayServiceImpl"></bean>
+
+    <dubbo:service interface="com.service.lottery.LotteryService" ref="lotteryService" timeout="30000"/>
+    <bean id="lotteryService" class="com.impl.lottery.LotteryServiceImpl"></bean>
+
+    <dubbo:service interface="com.service.browse.BrowseLogService" ref="browseLogService" timeout="30000"/>
+    <bean id="browseLogService" class="com.impl.browse.BrowseLogServiceImpl"></bean>
+</beans>

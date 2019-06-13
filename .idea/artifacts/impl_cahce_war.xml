@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="impl-cahce:war">
+    <output-path>$PROJECT_DIR$/doudou-impl-cahce/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>impl-cahce</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="impl-cahce-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="impl-cahce:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/doudou-common-core/common-core.iml" filepath="$PROJECT_DIR$/doudou-common-core/common-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/doudou.iml" filepath="$PROJECT_DIR$/.idea/doudou.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-article/impl-article.iml" filepath="$PROJECT_DIR$/doudou-impl-article/impl-article.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-balance/impl-balance.iml" filepath="$PROJECT_DIR$/doudou-impl-balance/impl-balance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-cahce/impl-cahce.iml" filepath="$PROJECT_DIR$/doudou-impl-cahce/impl-cahce.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-label/impl-label.iml" filepath="$PROJECT_DIR$/doudou-impl-label/impl-label.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-others/impl-others.iml" filepath="$PROJECT_DIR$/doudou-impl-others/impl-others.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-impl-user/impl-user.iml" filepath="$PROJECT_DIR$/doudou-impl-user/impl-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-article/service-article.iml" filepath="$PROJECT_DIR$/doudou-service-article/service-article.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-balance/service-balance.iml" filepath="$PROJECT_DIR$/doudou-service-balance/service-balance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-cache/service-cache.iml" filepath="$PROJECT_DIR$/doudou-service-cache/service-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-label/service-label.iml" filepath="$PROJECT_DIR$/doudou-service-label/service-label.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-others/service-others.iml" filepath="$PROJECT_DIR$/doudou-service-others/service-others.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-service-user/service-user.iml" filepath="$PROJECT_DIR$/doudou-service-user/service-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doudou-web-api/web-api.iml" filepath="$PROJECT_DIR$/doudou-web-api/web-api.iml" />
+    </modules>
+  </component>
+</project>
