@@ -18,4 +18,12 @@ public interface StoreService {
      * @return
      */
     JsonResult<Integer> save (long userId,String storeName);
+
+    /**
+     * 修改店铺状态
+     * @param storeId   店铺id
+     * @param state     店铺状态
+     * @return
+     */
+    JsonResult<Integer> updateState(long storeId,int state);
 }

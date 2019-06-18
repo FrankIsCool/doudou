@@ -36,4 +36,14 @@ public class StoreServiceImpl implements StoreService {
         store.setName(storeName);
         return save(store);
     }
+
+    @Override
+    public JsonResult<Integer> updateState(long storeId, int state) {
+        if(EmptyUtil.isEmpty(storeId)||EmptyUtil.isEmpty(state)){
+            return JsonResult.error(ExceptionCode.ERRO_100000);
+        }
+        JsonResult<Integer> result = new JsonResult<>();
+        result.setData(storeMapper.updateState(storeId,state));
+        return result;
+    }
 }

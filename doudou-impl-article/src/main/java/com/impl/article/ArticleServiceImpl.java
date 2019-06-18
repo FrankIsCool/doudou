@@ -164,7 +164,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //去重（用户id），获取最少的用户id及对应的文章
         Map<Long,List<Article>> map = new HashMap<>();
-        for (Article article : articles) {
+        articles.forEach(article -> {
             List<Article> articles1 ;
             if(!map.containsKey(article.getUserId())){
                 articles1 = new ArrayList<>();
@@ -173,7 +173,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
             articles1.add(article);
             map.put(article.getUserId(),articles1);
-        }
+        });
+
         //获取所有的作者
         Set<Long> keys = map.keySet();
         List<Long> userIds = new ArrayList<>();

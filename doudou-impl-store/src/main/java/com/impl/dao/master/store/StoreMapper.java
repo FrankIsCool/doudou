@@ -15,9 +15,9 @@ public interface StoreMapper {
             @Result(column = "create_time", property = "createTime", javaType = java.sql.Date.class),
             @Result(column = "user_id", property = "userId", javaType = java.lang.Long.class)})
     List<Store> getStores(@Param("state") Integer state, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
-//
-//    @Update("update label SET state = #{state} where id = #{id}")
-//    int updateState(@Param("id") long id, @Param("state") int state);
+
+    @Update("update store SET state = #{state} where id = #{id}")
+    int updateState(@Param("id") long id, @Param("state") int state);
 //
 //    @Select("select * from label where label = #{label}")
 //    @Results({
