@@ -30,24 +30,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JsonResult<Integer> saveUser(UserNode userNode) {
-        JsonResult<Integer> result = new JsonResult<>();
         userNode = initUserNode(userNode);
         userRepository.saveUser(userNode.getUserCode(), userNode.getUserName(), userNode.getPassword(), userNode.getState());
-        result.setData(1);
-        return result;
+        return JsonResult.success();
     }
 
     @Override
     public JsonResult<UserNode> getUser(long id) {
-        JsonResult<UserNode> result = new JsonResult<>();
-        result.setData(userRepository.getUserById(id));
-        return result;
+        return JsonResult.success(userRepository.getUserById(id));
     }
     @Override
     public JsonResult<UserNode> getUser(String userCode) {
-        JsonResult<UserNode> result = new JsonResult<UserNode>();
-        result.setData(userRepository.getUserByCode(userCode));
-        return result;
+        return JsonResult.success(userRepository.getUserByCode(userCode));
     }
     @Override
     public JsonResult<UserLogin> userLogin(String userName, String password, String source) {
@@ -76,11 +70,11 @@ public class UserServiceImpl implements UserService {
         tokenVo.setUserId(String.valueOf(userNode.getId()));
         tokenVo.setSource(source);
         String token = TokenUtil.createToken(tokenVo);
-        JsonResult<UserLogin> result = new JsonResult<>();
         UserLogin userLogin = new UserLogin();
         userLogin.setToken(token);
         userLogin.setUserName(userName);
         userLogin.setUserCode(userNode.getUserCode());
+        userLogin.setState(userNode.getState());
         boolean set = redisService.set(userNode.getUserCode(), userLogin);
         if(!set){
             return JsonResult.error(ExceptionCode.ERRO_102001);
@@ -91,16 +85,12 @@ public class UserServiceImpl implements UserService {
         userLoginLog.setSource(Integer.valueOf(source));
         userLoginLogMapper.save(userLoginLog);
 
-        result.setData(userLogin);
-        return result;
+        return JsonResult.success(userLogin);
     }
 
     @Override
     public JsonResult<List<UserNode>> getUserAll() {
-        List<UserNode> userNodeList = userRepository.getUserNodeList();
-        JsonResult<List<UserNode>> result = new JsonResult<>();
-        result.setData(userNodeList);
-        return result;
+        return JsonResult.success(userRepository.getUserNodeList());
     }
 
     @Override
@@ -108,13 +98,11 @@ public class UserServiceImpl implements UserService {
         if(EmptyUtil.isEmpty(ids)){
             return JsonResult.error(ExceptionCode.ERRO_100000);
         }
-        JsonResult<List<UserNode>> result = new JsonResult<>();
         List<UserNode> userNodes = new ArrayList<>();
         for(long id : ids){
             userNodes.add(userRepository.getUserById(id));
         }
-        result.setData(userNodes);
-        return result;
+        return JsonResult.success(userNodes);
     }
 
     /**

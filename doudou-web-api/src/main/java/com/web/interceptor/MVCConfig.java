@@ -14,18 +14,22 @@ public class MVCConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         // 登录拦截规则
-        registry.addInterceptor(new LoginInterceptor())
+        registry.addInterceptor(getLoginInterceptor())
                 .addPathPatterns("/**/user/**")
                 .excludePathPatterns("/**/user/regis")
                 .excludePathPatterns("/**/user/login")
                 .excludePathPatterns("/**/user/logout");
 
-        registry.addInterceptor(getLoginInterceptor())
+        registry.addInterceptor(getBrowseInterceptor())
                 .addPathPatterns("/**");
     }
     @Bean
-    public HandlerInterceptor getLoginInterceptor(){
+    public HandlerInterceptor getBrowseInterceptor(){
         return new BrowseInterceptor();
+    }
+    @Bean
+    public HandlerInterceptor getLoginInterceptor(){
+        return new LoginInterceptor();
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){

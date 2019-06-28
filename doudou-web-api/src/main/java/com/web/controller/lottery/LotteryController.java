@@ -43,15 +43,15 @@ public class LotteryController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType="query", name = "lotteryId", value = "彩票id", required = true, dataType = "String"),
             @ApiImplicitParam(paramType="query", name = "pageSize", value = "每页大小，默认10", required = false, dataType = "String"),
-            @ApiImplicitParam(paramType="query", name = "page", value = "当前页数，默认1", required = false, dataType = "String")
+            @ApiImplicitParam(paramType="query", name = "pageNum", value = "当前页数，默认1", required = false, dataType = "String")
     })
-    public JsonResult<LotteryHistoryData> getLotteryHistory(String lotteryId, int pageSize, int page){
+    public JsonResult<LotteryHistoryData> getLotteryHistory(String lotteryId, int pageSize, int pageNum){
         if(pageSize<10){
             pageSize = 10;
         }
-        if(page<1){
-            pageSize = 1;
+        if(pageNum<1){
+            pageNum = 1;
         }
-        return lotteryService.getLotteryHistory(lotteryId,pageSize,page);
+        return lotteryService.getLotteryHistory(lotteryId,pageSize,pageNum);
     }
 }

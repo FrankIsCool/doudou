@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -120,10 +121,7 @@ public class RedisServiceImpl implements RedisService {
      * @return
      */
     public Object getValue(String key) {
-        Object result = null;
-        ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
-        result = operations.get(key);
-        return result;
+        return redisTemplate.opsForValue().get(key);
     }
     /**
      * 哈希 添加

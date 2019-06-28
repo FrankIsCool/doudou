@@ -20,10 +20,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(browseLog)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<Integer> result = new JsonResult<>();
-        browseLogMapper.save(browseLog);
-
-        return result;
+        return  JsonResult.success(browseLogMapper.save(browseLog));
     }
 
     @Override
@@ -42,9 +39,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<Integer> result = new JsonResult<>();
-        result.setData(browseLogMapper.getCountByDay(date));
-        return result;
+        return JsonResult.success(browseLogMapper.getCountByDay(date));
     }
 
     @Override
@@ -52,9 +47,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<Integer> result = new JsonResult<>();
-        result.setData(browseLogMapper.getUserCounByDay(date));
-        return result;
+        return JsonResult.success(browseLogMapper.getUserCounByDay(date));
     }
 
     @Override
@@ -62,9 +55,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<List<Long>> result = new JsonResult<>();
-        result.setData(browseLogMapper.getUserIdsByDay(date));
-        return result;
+        return JsonResult.success(browseLogMapper.getUserIdsByDay(date));
     }
 
     @Override
@@ -72,9 +63,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)||EmptyUtil.isEmpty(userId)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<List<BrowseLog>> result = new JsonResult<>();
-        result.setData(browseLogMapper.getBrowseLogsByDayUserId(date,userId));
-        return result;
+        return JsonResult.success(browseLogMapper.getBrowseLogsByDayUserId(date,userId));
     }
 
     @Override
@@ -82,9 +71,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<Integer> result = new JsonResult<>();
-        result.setData(browseLogMapper.getUrlCountByDay(date));
-        return result;
+        return JsonResult.success(browseLogMapper.getUrlCountByDay(date));
     }
 
     @Override
@@ -92,9 +79,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<List<String>> result = new JsonResult<>();
-        result.setData(browseLogMapper.getUrlsByDay(date));
-        return result;
+        return JsonResult.success(browseLogMapper.getUrlsByDay(date));
     }
 
     @Override
@@ -102,9 +87,7 @@ public class BrowseLogServiceImpl implements BrowseLogService {
         if(EmptyUtil.isEmpty(date)||EmptyUtil.isEmpty(url)){
             return JsonResult.error(ExceptionCode.ERRO_400);
         }
-        JsonResult<List<BrowseLog>> result = new JsonResult<>();
-        result.setData(browseLogMapper.getBrowseLogsByDayUrl(date,url));
-        return result;
+        return JsonResult.success(browseLogMapper.getBrowseLogsByDayUrl(date,url));
     }
 
 }

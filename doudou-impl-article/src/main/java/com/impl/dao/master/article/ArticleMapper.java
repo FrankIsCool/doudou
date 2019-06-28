@@ -1,5 +1,6 @@
 package com.impl.dao.master.article;
 
+import com.common.jsonResult.Page;
 import com.service.model.Article;
 import org.apache.ibatis.annotations.*;
 
@@ -30,11 +31,11 @@ public interface ArticleMapper {
     @Update("update article SET labels = #{labels} where id = #{id}")
     int updateLabels(@Param("id") long id,@Param("labels") String labels);
 
-    @Select("select * from article LIMIT #{pageNum},#{pageSize}")
+    @Select("select * from article")
     @Results({
             @Result(column = "create_time", property = "createTime", javaType = java.sql.Date.class),
             @Result(column = "browse_num", property = "browseNum", javaType = java.lang.Integer.class),
             @Result(column = "like_num", property = "likeNum", javaType = java.lang.Integer.class),
             @Result(column = "user_id", property = "userId", javaType = java.lang.Long.class)})
-    List<Article> getArticles (@Param("pageNum")Integer pageNum, @Param("pageSize")Integer pageSize);
+    List<Article> getArticles (@Param("page") Page page);
 }

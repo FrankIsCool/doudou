@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
+import com.common.jsonResult.Page;
 import com.impl.dao.master.article.ArticleMapper;
 import com.impl.dao.slaver.article.ArticleBrowseLogMapper;
 import com.impl.dao.slaver.article.ArticleLikeLogMapper;
@@ -14,6 +15,7 @@ import com.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -32,9 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
         if(EmptyUtil.isEmpty(article.getTitle(),article.getContent())||EmptyUtil.isEmpty(article.getUserId())){
             return JsonResult.error(ExceptionCode.ERRO_100000);
         }
-        JsonResult<Integer> result = new JsonResult<>();
-        result.setData(articleMapper.save(article));
-        return result;
+        return JsonResult.success(articleMapper.save(article));
     }
 
     @Override
@@ -62,11 +62,10 @@ public class ArticleServiceImpl implements ArticleService {
         if(EmptyUtil.isEmpty(article)){
             return JsonResult.error(ExceptionCode.ERRO_408);
         }
-
         //获取作者名
         JsonResult<UserNode> userResult = userService.getUser(userId);
         if(EmptyUtil.isEmpty(userResult.getData())){
-            return new JsonResult<>();
+            return JsonResult.error(ExceptionCode.ERRO_104000);
         }
         article.setUserName(userResult.getData().getUserName());
         //修改访问次数
@@ -78,18 +77,15 @@ public class ArticleServiceImpl implements ArticleService {
         articleBrowseLog.setUserId(userId);
         articleBrowseLogMapper.save(articleBrowseLog);
 
-        JsonResult<Article> result = new JsonResult<>();
         if(EmptyUtil.isEmpty(userId)){
-            result.setData(article);
-            return result;
+            return JsonResult.success(article);
         }
-        //获取点赞记录
+        //获取是否点赞
         ArticleLikeLog articleLikeLog = articleLikeLogMapper.getArticleLikeLog(userId, article.getId());
         if(EmptyUtil.isNotEmpty(articleLikeLog)&&articleLikeLog.getState()==ArticleLikeLog.STATE_NORMAL){
             article.setLike(true);
         }
-        result.setData(article);
-        return result;
+        return JsonResult.success(article);
     }
 
     @Override
@@ -98,7 +94,6 @@ public class ArticleServiceImpl implements ArticleService {
         if(EmptyUtil.isEmpty(articleId)||EmptyUtil.isEmpty(userId)||EmptyUtil.isEmpty(type)){
             return JsonResult.error(ExceptionCode.ERRO_100000);
         }
-        JsonResult<Integer> result = new JsonResult<>();
         //获取点赞记录
         ArticleLikeLog articleLikeLog = articleLikeLogMapper.getArticleLikeLog(userId, articleId);
         //如果没有记录，并且是点赞操作时，需要添加点赞记录
@@ -113,28 +108,26 @@ public class ArticleServiceImpl implements ArticleService {
         //如果有记录，并且是点赞操作时，而且是取消点赞的状态下，需要修改点赞记录的状态
         if(EmptyUtil.isNotEmpty(articleLikeLog) && type<=1 && articleLikeLog.getState()==ArticleLikeLog.STATE_CANCEL){
             articleLikeLogMapper.updateState(articleLikeLog.getId(),ArticleLikeLog.STATE_NORMAL);
-            result.setData(articleMapper.addLike(articleId));
-            return result;
+            return  JsonResult.success(articleMapper.addLike(articleId));
         }
         //如果有记录，并且是点赞操作时，而且是点赞的状态下，不处理
         if(EmptyUtil.isNotEmpty(articleLikeLog) && type<=1 && articleLikeLog.getState()==ArticleLikeLog.STATE_NORMAL){
-            return result;
+            return JsonResult.success();
         }
         //如果没有记录，并且是取消点赞操作时，不处理
         if(EmptyUtil.isEmpty(articleLikeLog) && type>1){
-            return result;
+            return JsonResult.success();
         }
         //如果没有记录，并且是取消点赞操作时，而且是取消点赞的状态下，不处理
         if(EmptyUtil.isNotEmpty(articleLikeLog) && type>1 && articleLikeLog.getState()==ArticleLikeLog.STATE_CANCEL){
-            return result;
+            return JsonResult.success();
         }
         //如果没有记录，并且是取消点赞操作时，而且是点赞的状态下，需要修改点赞记录的状态
         if(EmptyUtil.isNotEmpty(articleLikeLog) && type>1 && articleLikeLog.getState()==ArticleLikeLog.STATE_NORMAL){
             articleLikeLogMapper.updateState(articleLikeLog.getId(),ArticleLikeLog.STATE_CANCEL);
-            result.setData(articleMapper.subLike(articleId));
-            return result;
+            return  JsonResult.success(articleMapper.subLike(articleId));
         }
-        return result;
+        return JsonResult.success();
     }
 
     @Override
@@ -142,29 +135,19 @@ public class ArticleServiceImpl implements ArticleService {
         if(EmptyUtil.isEmpty(articleId) || EmptyUtil.isEmpty(labels)){
             return JsonResult.error(ExceptionCode.ERRO_100000);
         }
-        JsonResult<Integer> result = new JsonResult<>();
-        result.setData(articleMapper.updateLabels(articleId, JSONObject.toJSONString(labels)));
-        return result;
+        return JsonResult.success(articleMapper.updateLabels(articleId, JSONObject.toJSONString(labels)));
     }
 
     @Override
     public JsonResult<List<Article>> getArticles(Integer pageNum, Integer pageSize) {
-        if(EmptyUtil.isEmpty(pageNum)||pageNum<1){
-            pageNum = 1;
-        }
-        if(EmptyUtil.isEmpty(pageSize)||pageSize<1){
-            pageSize = 20;
-        }
-        pageNum=(pageNum-1)*pageSize;
-        JsonResult<List<Article>> result = new JsonResult<>();
-        List<Article> articles = articleMapper.getArticles(pageNum, pageSize);
+        Page page = new Page(pageNum, pageSize);
+        List<Article> articles = articleMapper.getArticles(page);
         if(EmptyUtil.isEmpty(articles)){
-            result.setData(articles);
-            return result;
+            return JsonResult.success(articles,page);
         }
         //去重（用户id），获取最少的用户id及对应的文章
         Map<Long,List<Article>> map = new HashMap<>();
-        articles.forEach(article -> {
+        for (Article article : articles) {
             List<Article> articles1 ;
             if(!map.containsKey(article.getUserId())){
                 articles1 = new ArrayList<>();
@@ -173,8 +156,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
             articles1.add(article);
             map.put(article.getUserId(),articles1);
-        });
-
+        }
         //获取所有的作者
         Set<Long> keys = map.keySet();
         List<Long> userIds = new ArrayList<>();
@@ -191,7 +173,6 @@ public class ArticleServiceImpl implements ArticleService {
             }
             articles.addAll(articles1);
         }
-        result.setData(articles);
-        return result;
+        return JsonResult.success(articles,page);
     }
 }

@@ -1,5 +1,7 @@
 package com.web.controller.article;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.common.empty.EmptyUtil;
 import com.common.exception.ExceptionCode;
 import com.common.jsonResult.JsonResult;
@@ -32,12 +34,12 @@ public class ArticleController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType="query", name = "title", value = "标题", required = true, dataType = "String"),
             @ApiImplicitParam(paramType="query", name = "content", value = "内容", required = true, dataType = "String"),
-            @ApiImplicitParam(paramType="query", name = "labels", value = "标签实体类", required = true, dataType = "List"),
+            @ApiImplicitParam(paramType="query", name = "labels", value = "标签实体类", required = true, dataType = "String"),
     })
-    public JsonResult<Integer> addArticle(HttpServletRequest request, String title, String content, List<Label> labels){
+    public JsonResult<Integer> addArticle(HttpServletRequest request, String title, String content, String labels){
         TokenVo tokenVo = TokenUtil.getTokenVo(request);
         String userId = tokenVo.getUserId();
-        return articleService.addArticle(title,content,labels,Long.valueOf(userId));
+        return articleService.addArticle(title,content,JSONArray.parseArray(labels,Label.class),Long.valueOf(userId));
     }
     @RequestMapping(value ="/article/info", method= RequestMethod.GET)
     @ApiOperation(value="文章详情")
@@ -66,16 +68,16 @@ public class ArticleController {
         return articleService.updateLike(articleId,Long.valueOf(userId),type, Integer.valueOf(source));
     }
     @RequestMapping(value ="/user/article/updateLabels", method= RequestMethod.GET)
-    @ApiOperation(value="点赞或取消")
+    @ApiOperation(value="设置文章标签")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType="query", name = "articleId", value = "文章id", required = true, dataType = "Long"),
-            @ApiImplicitParam(paramType="query", name = "labels", value = "标签实体类", required = true, dataType = "List"),
+            @ApiImplicitParam(paramType="query", name = "labels", value = "标签实体类", required = true, dataType = "String"),
     })
-    public JsonResult<Integer> updateLabels(long articleId, List<Label> labels){
+    public JsonResult<Integer> updateLabels(long articleId, String labels){
         if(EmptyUtil.isEmpty(articleId)||EmptyUtil.isEmpty(labels)){
             return JsonResult.error(ExceptionCode.ERRO_100000);
         }
-        return articleService.updateLabel(articleId,labels);
+        return articleService.updateLabel(articleId, JSONArray.parseArray(labels,Label.class));
     }
     @RequestMapping(value ="/article/list", method= RequestMethod.GET)
     @ApiOperation(value="文章列表")

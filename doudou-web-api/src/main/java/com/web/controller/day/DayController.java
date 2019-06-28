@@ -8,6 +8,7 @@ import com.service.day.DayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.runtime.ScriptObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,10 +43,11 @@ public class DayController {
         if(1>Integer.valueOf(days[2])||Integer.valueOf(days[2])>31){
             return JsonResult.error(ExceptionCode.ERRO_100004);
         }
-        String regex  = "([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-((([13578]|1[02])-([12][0-9]|3[01]|[1-9]))|(([469]|11)-([12][0-9]|30|[1-9]))|(2-([[1][0-9]|2[0-8]|[1-9])))";
-        if(EmptyUtil.isEmpty(match(regex, day))){
-            return JsonResult.error(ExceptionCode.ERRO_100004);
-        }
+//        String regex  = "([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-((([13578]|1[02])-([12][0-9]|3[01]|[1-9]))|(([469]|11)-([12][0-9]|30|[1-9]))|(2-([[1][0-9]|2[0-8]|[1-9])))";
+////        ScriptObject match = match(regex, day);
+////        if(EmptyUtil.isEmpty(match(regex, day))){
+////            return JsonResult.error(ExceptionCode.ERRO_100004);
+////        }
         return dayService.getDayInfo(day);
     }
 }

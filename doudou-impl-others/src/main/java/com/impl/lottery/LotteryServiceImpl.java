@@ -22,44 +22,38 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public JsonResult<List<LotteryTypeData>> getLotteryType() {
-        JsonResult<List<LotteryTypeData>> result = new JsonResult<>();
         List<LotteryTypeData> lotteryTypeData = (List<LotteryTypeData>) redisService.getObject(RedisConfig.LOTTERYTYPE);
         if(EmptyUtil.isNotEmpty(lotteryTypeData)){
-            result.setData(lotteryTypeData);
-            return result;
+            return JsonResult.success(lotteryTypeData);
         }
         JHResult<List<LotteryTypeData>> resultLotteryType = JHLotteryUtil.getLotteryType();
-        if(EmptyUtil.isNotEmpty(resultLotteryType.getResult())){
-            redisService.set(RedisConfig.LOTTERYTYPE, resultLotteryType.getResult());
-            result.setData(resultLotteryType.getResult());
+        if(EmptyUtil.isEmpty(resultLotteryType.getResult())){
+            return JsonResult.success();
         }
-        return result;
+        redisService.set(RedisConfig.LOTTERYTYPE, resultLotteryType.getResult());
+        return JsonResult.success(resultLotteryType.getResult());
     }
 
     @Override
     public JsonResult<LotteryResultData> getLotteryResult(String lotteryId, String lotteryNo) {
-
-        JsonResult<LotteryResultData> result = new JsonResult<>();
         LotteryResultData lotteryResultData = (LotteryResultData) redisService.getObject(RedisConfig.LOTTERY+lotteryId+"&"+lotteryNo);
         if(EmptyUtil.isNotEmpty(lotteryResultData)){
-            result.setData(lotteryResultData);
-            return result;
+            return JsonResult.success(lotteryResultData);
         }
         JHResult<LotteryResultData> resultLotteryType = JHLotteryUtil.getLotteryResult(lotteryId,lotteryNo);
-        if(EmptyUtil.isNotEmpty(resultLotteryType.getResult())){
-            redisService.set(RedisConfig.LOTTERY+lotteryId+"&"+lotteryNo, resultLotteryType.getResult());
-            result.setData(resultLotteryType.getResult());
+        if(EmptyUtil.isEmpty(resultLotteryType.getResult())){
+            return JsonResult.success();
         }
-        return result;
+        redisService.set(RedisConfig.LOTTERY+lotteryId+"&"+lotteryNo, resultLotteryType.getResult());
+        return JsonResult.success(resultLotteryType.getResult());
     }
 
     @Override
     public JsonResult<LotteryHistoryData> getLotteryHistory(String lotteryId, int pageSize, int page) {
-        JsonResult<LotteryHistoryData> result = new JsonResult<>();
         JHResult<LotteryHistoryData> resultLotteryType = JHLotteryUtil.getLotteryHistory(lotteryId, pageSize, page);
         if(EmptyUtil.isNotEmpty(resultLotteryType.getResult())){
-            result.setData(resultLotteryType.getResult());
+            return JsonResult.success(resultLotteryType.getResult());
         }
-        return result;
+        return JsonResult.success();
     }
 }

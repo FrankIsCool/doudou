@@ -17,17 +17,15 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public JsonResult<CalendarData> getDayInfo(String day) {
-        JsonResult<CalendarData> result = new JsonResult<>();
         CalendarData calendarData = (CalendarData) redisService.getObject(day);
         if(EmptyUtil.isNotEmpty(calendarData)){
-            result.setData(calendarData);
-            return result;
+            return JsonResult.success(calendarData);
         }
         JHResult<CalendarData> jhResult = CalendarUtil.getCalendar(day);
-        if(EmptyUtil.isNotEmpty(jhResult.getResult())){
-            redisService.set(day, jhResult.getResult());
-            result.setData(jhResult.getResult());
+        if(EmptyUtil.isEmpty(jhResult.getResult())){
+            return JsonResult.success();
         }
-        return result;
+        redisService.set(day, jhResult.getResult());
+        return JsonResult.success(jhResult.getResult());
     }
 }

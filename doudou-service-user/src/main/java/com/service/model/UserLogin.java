@@ -7,6 +7,15 @@ public class UserLogin implements Serializable {
     private String userName;
     private String userCode;
     private String token;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getUserCode() {
         return userCode;

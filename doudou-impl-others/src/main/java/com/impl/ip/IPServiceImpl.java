@@ -22,17 +22,15 @@ public class IPServiceImpl implements IPService {
      */
     @Override
     public JsonResult<IPAddressVo> getAddress(String ip) {
-        JsonResult<IPAddressVo> result = new JsonResult<>();
         IPAddressVo address = (IPAddressVo) redisService.getObject(ip);
         if(EmptyUtil.isNotEmpty(address)){
-            result.setData(address);
-            return result;
+            return JsonResult.success(address);
         }
         address = IPUtil.getAddress(ip);
-        if(EmptyUtil.isNotEmpty(address)){
-            redisService.set(ip, address);
-            result.setData(address);
+        if(EmptyUtil.isEmpty(address)){
+            return JsonResult.success();
         }
-        return result;
+        redisService.set(ip, address);
+        return JsonResult.success(address);
     }
 }

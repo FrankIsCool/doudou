@@ -15,23 +15,15 @@ public class JsonResult <T> implements Serializable {
     private String msg = "";
     private String exceptoin = "";
     private T data;
-    private int row;
-    private int size;
+    private Page page;
 
-    public int getRow() {
-        return row;
+    public Page getPage() {
+        return page;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
+    public JsonResult setPage(Page page) {
+        this.page = page;
+        return this;
     }
 
     public JsonResult(){}
@@ -84,10 +76,17 @@ public class JsonResult <T> implements Serializable {
         return data;
     }
 
-    public void setData(T data) {
-        if (data instanceof List){
-            this.size = ((List) data).size();
-        }
+    public JsonResult<T> setData(T data) {
         this.data = data;
+        return this;
+    }
+    public static JsonResult success(Object data,Page page) {
+        return success(data).setPage(page);
+    }
+    public static JsonResult success(Object data) {
+        return new JsonResult().setData(data);
+    }
+    public static JsonResult success() {
+        return new JsonResult();
     }
 }

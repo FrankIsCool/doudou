@@ -1,5 +1,7 @@
 package com.common.dataSource;
 
+import com.common.paging.PagingInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -39,6 +41,9 @@ public class MasterDataSourceConfiguration {
                                                            DataSource dataSource)
             throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        //MyBatis分页插件
+        Interceptor[] plugins =  new Interceptor[]{new PagingInterceptor()};
+        bean.setPlugins(plugins);
         bean.setDataSource(dataSource);
         return bean.getObject();
     }
