@@ -10,6 +10,8 @@ public class BrowseLog implements Serializable {
     private long id;
     //访问url
     private String url;
+    //访问url参数
+    private String param;
     //用户id
     private long userId;
     //来源
@@ -20,6 +22,14 @@ public class BrowseLog implements Serializable {
     private String deviceInfo;
     //创建时间
     private Date createTime;
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
 
     public long getId() {
         return id;

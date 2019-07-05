@@ -14,6 +14,7 @@ import java.util.List;
 @com.alibaba.dubbo.config.annotation.Service
 @org.springframework.stereotype.Service
 public class BalanceBillLogServiceImpl implements BalanceBillLogService {
+
     @Autowired
     private BalanceBillLogMapper balanceBillLogMapper;
 

@@ -33,16 +33,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader("token");
         if(EmptyUtil.isEmpty(token)){
-            retrunErro(response,JsonResult.error(ExceptionCode.ERRO_100001));
+            returnErro(response,JsonResult.error(ExceptionCode.ERRO_100001));
             return false;
         }
         String source = request.getHeader("source");
         if(EmptyUtil.isEmpty(source)){
-            retrunErro(response,JsonResult.error(ExceptionCode.ERRO_100002));
+            returnErro(response,JsonResult.error(ExceptionCode.ERRO_100002));
             return false;
         }
         if(!TokenUtil.loginVerifyToken(token, source)){
-            retrunErro(response,JsonResult.error(ExceptionCode.ERRO_100003));
+            returnErro(response,JsonResult.error(ExceptionCode.ERRO_100003));
             return false;
         }
         TokenVo tokenVo = TokenUtil.getTokenVo(token);
@@ -54,16 +54,16 @@ public class LoginInterceptor implements HandlerInterceptor {
             userLogin = (UserLogin)object;
         }
         if(!token.equals(userLogin.getToken())){
-            retrunErro(response,JsonResult.error(ExceptionCode.ERRO_100003));
+            returnErro(response,JsonResult.error(ExceptionCode.ERRO_100003));
             return false;
         }
         if(!UserNode.USER_STATE_NORMAL.equals(userLogin.getState())){
-            retrunErro(response,JsonResult.error(ExceptionCode.ERRO_100003));
+            returnErro(response,JsonResult.error(ExceptionCode.ERRO_100003));
             return false;
         }
         return true;
     }
-    private void retrunErro(HttpServletResponse response,JsonResult jsonResult){
+    private void returnErro(HttpServletResponse response,JsonResult jsonResult){
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out;
         try {

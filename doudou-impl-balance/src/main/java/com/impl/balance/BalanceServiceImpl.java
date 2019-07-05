@@ -9,12 +9,19 @@ import com.service.balance.BalanceBillLogService;
 import com.service.balance.BalanceService;
 import com.service.model.Balance;
 import com.service.model.BalanceBillLog;
+import org.apache.log4j.Logger;
+//import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 
 import java.math.BigDecimal;
+
 @Service
 public class BalanceServiceImpl implements BalanceService {
+//    private static final Logger log = LoggerFactory.getLogger(BalanceService.class);
+    private static final Logger log = Logger.getLogger(BalanceService.class);
+
     @Autowired
     private BalanceMapper balanceMapper;
     @Autowired
@@ -78,7 +85,10 @@ public class BalanceServiceImpl implements BalanceService {
     }
     @Override
     public JsonResult<Balance> getBalance(long userId) {
-
+        log.info(" i am info");
+        log.error("i am error");
+        log.warn(" i am warn");
+        log.debug(" i am debug");
         Balance balance = balanceMapper.getBalanceByUserId(userId);
         if(EmptyUtil.isEmpty(balance)){
             JsonResult<Integer> result1 = saveBalance(userId);

@@ -38,6 +38,7 @@ import java.util.Properties;
 public class PagingInterceptor implements Interceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(PagingInterceptor.class);
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger("sql");
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -46,12 +47,12 @@ public class PagingInterceptor implements Interceptor {
         Object parameter = invocation.getArgs()[1];
         RowBounds rowBounds = (RowBounds) invocation.getArgs()[2];
         ResultHandler<?> resultHandler = (ResultHandler<?>) invocation.getArgs()[3];
-
         if(rowBounds == null) {
             rowBounds = new RowBounds();
         }
 
         BoundSql boundSql = ms.getBoundSql(parameter);
+        log.info("=========数据库:"+boundSql.getSql());
         CacheKey key = executor.createCacheKey(ms, parameter, rowBounds, boundSql);
 
         if (rowBounds instanceof Page) {
