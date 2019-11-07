@@ -18,8 +18,7 @@ import javax.sql.DataSource;
 
 
 @Configuration // 注入到spring容器中..
-@MapperScan(basePackages = "com.impl.dao.master.*", sqlSessionFactoryRef =
-        "masterSqlSessionFactory")
+@MapperScan(basePackages = "com.impl.dao.master.*", sqlSessionFactoryRef = "masterSqlSessionFactory")
 public class MasterDataSourceConfiguration {
 
     /**
@@ -37,9 +36,7 @@ public class MasterDataSourceConfiguration {
      */
     @Bean(name = "masterSqlSessionFactory")
     @Primary
-    public SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDataSource")
-                                                           DataSource dataSource)
-            throws Exception {
+    public SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         //MyBatis分页插件
         Interceptor[] plugins =  new Interceptor[]{new PagingInterceptor()};
