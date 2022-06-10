@@ -17,7 +17,7 @@
     <!--    版本-->
     <properties>
         <swagger.version>2.7.0</swagger.version>
-        <dubbo.version>2.5.3</dubbo.version>
+        <dubbo.version>2.6.12</dubbo.version>
         <zk.version>3.4.5</zk.version>
         <zkclient.version>0.1</zkclient.version>
         <junit.version>3.8.1</junit.version>
