@@ -18,7 +18,7 @@
     <properties>
         <swagger.version>2.7.0</swagger.version>
         <dubbo.version>2.5.3</dubbo.version>
-        <zk.version>3.4.5</zk.version>
+        <zk.version>3.4.14</zk.version>
         <zkclient.version>0.1</zkclient.version>
         <junit.version>3.8.1</junit.version>
         <apollo-client.version>1.1.0</apollo-client.version>
